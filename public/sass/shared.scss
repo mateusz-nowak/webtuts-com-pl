@@ -1,0 +1,17 @@
+@import 'bootstrap.scss';
+
+.navbar-small {
+    font-size: 0.5em;
+}
+
+.container-whole {
+    @extend .row;
+}
+
+.container-sidebar {
+    @extend .col-lg-2;
+}
+
+.container-body {
+    @extend .col-lg-10;
+}

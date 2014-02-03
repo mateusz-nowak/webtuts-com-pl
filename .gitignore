@@ -1,3 +1,4 @@
 node_modules/
 config/production.yml
 config/development.yml
+public/css
