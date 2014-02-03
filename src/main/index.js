@@ -1,13 +1,12 @@
-var express = require('express'),
-    engine = require('ejs-locals');
+var express = require('express');
+var engine = require('ejs-locals');
+var main = require('./controllers/main');
 
-module.exports = app = express();
+var app = module.exports = express();
 
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-
-var main = require('./controllers/main');
 
 app.get('/', main.index);
 app.get('/create', main.create);
