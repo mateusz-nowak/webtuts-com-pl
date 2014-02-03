@@ -6,7 +6,6 @@ module.exports = app = express();
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-app.use(require('../../middleware/mongo'));
 
 var main = require('./controllers/main');
 
