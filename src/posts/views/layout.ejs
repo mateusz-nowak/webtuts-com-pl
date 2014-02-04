@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>example</title>
+    <link type="text/css" href="http://bootswatch.com/yeti/bootstrap.css" rel="stylesheet" />
+    <link type="text/css" href="/css/shared.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>webtuts.com.pl <small>best tip&tricks, tutorials for developers</small></h1>
+            <nav class="navbar navbar-inverse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#"><span class="glyphicon glyphicon-user" /> Zaloguj</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section class="container-base">
+            <section class="container-sidebar">
+                <p class="lead lead-sidebar caps">Kategorie</p>
+                <p class="lead lead-sidebar caps">Chmura tagów</p>
+            </section>
+            <section class="container-body">
+                <%- body -%>
+            </section>
+            <div class="clearfix"></div>
+        </section>
+        <footer>
+            <nav class="navbar navbar-footer">
+                <p class="navbar-text pull-right">Made on top of Node.js, Mongo and fascinated by open-source</p>
+            </nav>
+        </footer>
+    </div>
+</body>
+</html>

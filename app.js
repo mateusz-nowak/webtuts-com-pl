@@ -26,7 +26,7 @@ app.configure('production', function() {
 });
 
 app.configure(function() {
-    app.use(require('./middleware/mongo'));
+    //app.use(require('./middleware/mongo'));
     app.use(express.json());
     app.use(express.bodyParser());
     app.use(express.urlencoded());
@@ -42,6 +42,8 @@ app.configure(function() {
     module.paths.push(__dirname+ '/src');
 });
 
-app.use(require('main'));
+app.use(require('categories'));
+app.use(require('posts'));
+app.use(require('admin'));
 
 http.createServer(app).listen(process.env.PORT || 3000);

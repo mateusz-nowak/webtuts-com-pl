@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <title>webtuts.com.pl - administracja</title>
+    <link type="text/css" href="http://bootswatch.com/yeti/bootstrap.css" rel="stylesheet" />
+    <link type="text/css" href="/css/shared.css" rel="stylesheet" />
+    <link type="text/css" href="/css/admin.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="pull-left">webtuts.com.pl <small>administracja</small></h1>
+            <a class="btn btn-default pull-right btn-back caps" href="/">do aplikacji</a>
+            <div class="clearfix"></div>
+        </header>
+        <section class="container-base">
+            <section class="container-sidebar">
+                <p class="lead lead-sidebar caps">Domena zarządzania</p>
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="/admin/categories"><span class="glyphicon glyphicon-folder-close"></span> Kategorie</a></li>
+                    <li><a href="/admin/products"><span class="glyphicon glyphicon-font"></span> Artykuły</a></li>
+                </ul>
+            </section>
+            <section class="container-body">
+                <%- body -%>
+            </section>
+            <div class="clearfix"></div>
+        </section>
+        <footer>
+            <nav class="navbar navbar-footer">
+                <p class="navbar-text pull-right">Made on top of Node.js, Mongo and fascinated by open-source</p>
+            </nav>
+        </footer>
+    </div>
+</body>
+</html>

@@ -9,9 +9,46 @@
 }
 
 .container-sidebar {
-    @extend .col-lg-2;
+    @extend .col-lg-3;
+    padding-left: 0;
 }
 
 .container-body {
-    @extend .col-lg-10;
+    @extend .col-lg-9;
+}
+
+.header-logo {
+    margin: 10px 0;
+}
+
+.text--right {
+    text-align: right;
+}
+
+footer {
+    margin-top: 10px;
+    .navbar-footer {
+        color: #999;
+    }
+}
+
+.caps {
+    text-transform: uppercase;
+}
+
+.tutorial {
+    margin-bottom: 70px;
+    .tutorial-description {
+        text-indent: 20px;
+    }
+    .tutorial-metadata {
+        color: #666;
+        border-top: 1px solid #eee;
+        display: block;
+        text-align: right;
+    }
+}
+
+.lead-sidebar {
+    font-size: 14px;
 }
