@@ -9,19 +9,64 @@
 <body>
     <div class="container">
         <header>
-            <h1>webtuts.com.pl <small>best tip&tricks, tutorials for developers</small></h1>
+            <div class="container-logo">
+                <div class="logo">
+                    <h1>
+                        <span class="bold">web</span>tuts.com.pl
+                        <div class="slogan">tips&amp;tricks and tutorials for developers</div>
+                    </h1>
+                </div>
+                <div class="statistics">
+                    <a class="btn btn-login btn-default"><span class="glyphicon glyphicon-user" /> Zaloguj</a>
+
+                    <div>Łącznie tutoriali: <span class="bold">130</span></div>
+                    <div>Online: <span class="bold">17</span></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
             <nav class="navbar navbar-inverse">
-                <ul class="nav navbar-nav">
-                    <li><a href="#"><span class="glyphicon glyphicon-user" /> Zaloguj</a></li>
-                </ul>
+                <div class="navbar-form navbar-left">
+                    <a class="btn btn-default"><span class="glyphicon glyphicon-home" /> Główna</a>
+                    <a class="btn btn-default"><span class="glyphicon glyphicon-indent-left" /> Forum</a>
+                    <a class="btn btn-default"><span class="glyphicon glyphicon-envelope" /> Autorzy</a>
+                </div>
+                <div class="navbar-form navbar-right">
+                    <a class="btn btn-default"><span class="glyphicon glyphicon-pencil" /> <span class="bold">Napisz</span></a>
+                </div>
             </nav>
         </header>
         <section class="container-base">
             <section class="container-sidebar">
-                <p class="lead lead-sidebar caps">Kategorie</p>
-                <p class="lead lead-sidebar caps">Chmura tagów</p>
+                <p class="lead lead-sidebar caps bold">Kategorie</p>
+                <ul class="nav nav-pills nav-stacked nav-categories">
+                    <li>
+                        <a href="#"><span class="label label-default pull-right">12</span>PHP</a>
+                    </li>
+                    <li>
+                        <a href="#"><span class="label label-default pull-right">42</span>SQL</a>
+                    </li>
+                    <li class="active">
+                        <a href="#"><span class="label label-default pull-right">3</span>Javascript client</a>
+                    </li>
+                    <li>
+                        <a href="#"><span class="label label-default pull-right">62</span>Javascript client</a>
+                    </li>
+                    <li>
+                        <a href="#"><span class="label label-default pull-right">102</span>Ruby on Rails</a>
+                    </li>
+                </ul>
+                <p class="lead caps bold lead-sidebar lead-search">Przeszukaj</p>
+                <small class="hint">wyszukiwanie po tytule, treści, tagach</small>
+                <form class="form-horizontal form-search" action="/posts/search">
+                    <input type="text" class="form-control" name="q" placeholder="Wpisz zapytanie..." />
+                    <button class="btn btn-default btn-search"><span class="glyphicon glyphicon-search"></span> Szukaj</button>
+                </form>
             </section>
             <section class="container-body">
+                <ol class="breadcrumb">
+                    <li><a href="/">Wszystkie artykuły</a></li>
+                    <li><a href="/category/node">Node</a></li>
+                </ol>
                 <%- body -%>
             </section>
             <div class="clearfix"></div>

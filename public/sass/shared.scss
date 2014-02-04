@@ -1,4 +1,5 @@
 @import 'bootstrap.scss';
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,500);
 
 .navbar-small {
     font-size: 0.5em;
@@ -11,6 +12,26 @@
 .container-sidebar {
     @extend .col-lg-3;
     padding-left: 0;
+    .nav-categories {
+        margin-bottom: 20px;
+        li a {
+            border-bottom: 1px solid #eee;
+        }
+    }
+    .lead-search {
+        margin-bottom: 0;
+    }
+    .hint {
+        padding: 0;
+        margin: 0;
+        color: #ccc;
+    }
+    .form-search {
+        margin-top: 10px;
+    }
+    .btn-search {
+        margin-top: 5px;
+    }
 }
 
 .container-body {
@@ -23,6 +44,26 @@
 
 .text--right {
     text-align: right;
+}
+
+header {
+    h1 {
+        font-weight: 300 !important;
+        font-family: 'Raleway', sans-serif;
+        .slogan {
+            font-size: 11px;
+            padding-left: 25px;
+        }
+    }
+    .navbar-right {
+        padding-right: 20px;
+    }
+    small {
+        font-weight: 300;
+    }
+    .navbar {
+        margin-top: 10px;
+    }
 }
 
 footer {
@@ -41,14 +82,41 @@ footer {
     .tutorial-description {
         text-indent: 20px;
     }
+    .btn-comment {
+        margin-right: 5px;
+    }
     .tutorial-metadata {
         color: #666;
         border-top: 1px solid #eee;
         display: block;
         text-align: right;
+        padding-top: 10px;
     }
 }
 
 .lead-sidebar {
     font-size: 14px;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.container-logo {
+    @extend .row;
+    .logo {
+        @extend .col-lg-8;
+    }
+    .statistics {
+        @extend .col-lg-4;
+        @extend .text--right;
+        @extend .caps;
+        color: #666;
+        padding-top: 10px;
+        font-size: 11px;
+    }
+}
+
+.btn-login {
+    margin-bottom: 10px;
 }
