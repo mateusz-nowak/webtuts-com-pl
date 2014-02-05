@@ -1,0 +1,11 @@
+<%- layout('../layout') %>
+
+<h2 class="lead"><%= post.title %></h2>
+<%- post.markedIntro %>
+<%- post.markedContent %>
+
+<% if (post.active != true) { %>
+    <div class="actions">
+        <a class="btn btn-default" href="/admin/posts/<%= post._id %>/activate">Aktywuj</a>
+    </div>
+<% } %>

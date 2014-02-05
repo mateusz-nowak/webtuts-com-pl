@@ -3,3 +3,23 @@
 <div class="list-actions">
     <a href="/admin/categories/new" class="btn btn-primary caps">Dodaj</a>
 </div>
+
+<h2 class="lead">Lista kategorii</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th class="text--right">Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% categories.forEach(function(category) { %>
+            <tr>
+                <td><%= category.name %></td>
+                <td class="text--right">
+                    <a class="btn btn-default" href="/admin/categories/<%= category._id %>/delete">Usuń</a>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>

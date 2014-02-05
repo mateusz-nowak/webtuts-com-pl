@@ -26,7 +26,7 @@ app.configure('production', function() {
 });
 
 app.configure(function() {
-    //app.use(require('./middleware/mongo'));
+    app.use(require('./middleware/mongo'));
     app.use(express.json());
     app.use(express.bodyParser());
     app.use(express.urlencoded());

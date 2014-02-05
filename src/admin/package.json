@@ -1,4 +1,9 @@
 {
   "dependencies": {
+    "express-validator": "~1.0.1",
+    "mongo-join": "~1.0.0",
+    "morkdown": "~2.3.0",
+    "highlight.js": "~8.0.0",
+    "marked": "~0.3.1"
   }
 }
