@@ -17,7 +17,15 @@
                     </h1>
                 </div>
                 <div class="statistics">
-                    <a class="btn btn-login btn-default"><span class="glyphicon glyphicon-user" /> Zaloguj</a>
+                    <% if (!user) { %>
+                        <a class="btn btn-login btn-default" href="/auth/github"><span class="glyphicon glyphicon-user" /> Zaloguj</a>
+                    <% } else { %>
+                        <div class="auth-info">
+                            <img src="<%= user._json.avatar_url %>" />
+                            <span class="user-info">Zalogowany jako: <span class="bold user-name">@<%= user.username %></span></span>
+                        </div>
+                        <a class="btn btn-xs btn-login btn-default" href="/auth/logout"><span class="glyphicon glyphicon-user" /> Wyloguj</a>
+                    <% } %>
 
                     <div>Łącznie tutoriali: <span class="bold">130</span></div>
                     <div>Online: <span class="bold">17</span></div>
@@ -39,21 +47,9 @@
             <section class="container-sidebar">
                 <p class="lead lead-sidebar caps bold">Kategorie</p>
                 <ul class="nav nav-pills nav-stacked nav-categories">
-                    <li>
-                        <a href="#"><span class="label label-default pull-right">12</span>PHP</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="label label-default pull-right">42</span>SQL</a>
-                    </li>
-                    <li class="active">
-                        <a href="#"><span class="label label-default pull-right">3</span>Javascript client</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="label label-default pull-right">62</span>Javascript client</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="label label-default pull-right">102</span>Ruby on Rails</a>
-                    </li>
+                    <% categories.forEach(function(category) { %>
+                        <li><a href="/categories/<%= category.slug %>"><%= category.name %></a></li>
+                    <% }) %>
                 </ul>
                 <p class="lead caps bold lead-sidebar lead-search">Przeszukaj</p>
                 <small class="hint">wyszukiwanie po tytule, treści, tagach</small>

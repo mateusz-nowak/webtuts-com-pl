@@ -42,8 +42,9 @@ app.configure(function() {
     module.paths.push(__dirname+ '/src');
 });
 
-app.use(require('categories'));
+app.use(require('auth'));
 app.use(require('posts'));
+app.use(require('categories'));
 app.use(require('admin'));
 
 http.createServer(app).listen(process.env.PORT || 3000);

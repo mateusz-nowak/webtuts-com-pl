@@ -124,3 +124,16 @@ footer {
 .form-field-error {
     color: red;
 }
+
+.auth-info {
+    img {
+        width: 25px;
+        height: 25px;
+        border: 1px solid #eee;
+        padding: 1px;
+    }
+    .user-info {
+        position: relative;
+        top: 2px;
+    }
+}

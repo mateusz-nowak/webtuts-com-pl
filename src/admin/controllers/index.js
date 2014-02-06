@@ -119,7 +119,7 @@ module.exports = {
         },
 
         new: function(req, res) {
-            res.render('categories/new', { errors: [] });
+            res.render('categories/new', { errors: [], category: {} });
         },
 
 
@@ -130,9 +130,13 @@ module.exports = {
 
             if (errors) {
                 return res.render('categories/new', {
-                    errors: errors
+                    errors: errors,
+                    category: {}
                 });
             }
+
+            var slug = require('slug');
+            req.body.slug = slug(req.body.name).toLowerCase();
 
             req.mongo.collection('categories').insert(req.body, function(err, docs) {
                 res.redirect('/admin/categories');
