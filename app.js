@@ -28,7 +28,19 @@ app.configure('production', function() {
 });
 
 app.configure(function() {
-    app.use(require('./middleware/mongo'));
+    app.use(function(req, res, next) {
+        var client = require('mongodb').MongoClient;
+        var config = req.app.get('configuration').mongo;
+
+        client.connect('mongodb://' + config.host + ':' + config.port + '/' + config.database, config.options || {}, function(err, db) {
+            if (err) {
+                next(err);
+            }
+            req.mongo = db;
+
+            next();
+        });
+    });
     app.use(express.json());
     app.use(express.bodyParser());
     app.use(express.urlencoded());
