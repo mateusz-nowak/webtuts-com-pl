@@ -1,11 +1,13 @@
 var express = require('express');
-var http = require('http');
 var app = express();
 var yaml = require('yamljs');
 var path = require('path');
 var sass = require('node-sass');
+var livereload = require('express-livereload');
+livereload(app, config={});
 
 app.configure('development', function() {
+
     app.set('configuration', yaml.load('config/development.yml'));
     app.use(express.errorHandler());
     app.use(sass.middleware({
@@ -44,7 +46,7 @@ app.configure(function() {
 
 app.use(require('auth'));
 app.use(require('posts'));
-app.use(require('categories'));
+// app.use(require('categories'));
 app.use(require('admin'));
 
-http.createServer(app).listen(process.env.PORT || 3000);
+module.exports = app;
