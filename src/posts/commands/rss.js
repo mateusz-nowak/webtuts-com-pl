@@ -6,6 +6,7 @@ var resolveProviders = function() {
     var providers = [];
 
     providers.push(require('./providers/xlab'));
+    providers.push(require('./providers/fabien'));
 
     return providers;
 };
@@ -51,5 +52,6 @@ providers.forEach(function(provider) {
             console.log('Adding posts for: ' + provider.uri);
 
             addPosts(posts);
+            console.log('Done.');
         });
 });

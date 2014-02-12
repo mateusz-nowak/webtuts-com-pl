@@ -10,6 +10,7 @@
     "ejs": "~0.8.5",
     "node-sass": "~0.8.1",
     "commander": "~2.1.0",
-    "express-livereload": "0.0.24"
+    "express-livereload": "0.0.24",
+    "marked": "~0.3.1"
   }
 }

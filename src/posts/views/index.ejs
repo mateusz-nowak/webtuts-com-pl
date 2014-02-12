@@ -1,112 +1,34 @@
 <%- layout('layout') %>
 
 <section class="section-tutorials">
+<% posts.forEach(function(post) { %>
     <article class="tutorial">
         <p class="lead tutorial-title">
-            <a class="lead" href="/tutorial/1">Understanding Symfony Bundle Configuration and Service Container</a>
+        <% if (post.link) { %>
+            <a class="lead" href="<%= post.link %>"><span class="type-rss">rss</span><%= post.title %></a>
+        <% } else { %>
+            <a class="lead" href="/tutorial/<%= post.slug %>"><%= post.title %></a>
+        <% } %>
             <div class="tutorial-tags">
-                <span class="label label-info caps">php</span>
-                <span class="label label-danger caps">mysql</span>
-                <span class="label label-warning caps">javascript</span>
+                <% if (post.tags) { %>
+                    <%= post.tags %>
+                <% } %>
             </div>
         </p>
         <p class="tutorial-description">
-            In this post we’ll cover different ways on how to configure Bundles in Symfony2 and how the dependency injection container works with the configuration. The Bundle configuration and Symfony dependency injection container (also known as service container) can be difficult concepts to grasp when first starting development with Symfony2, especially if dependency injection is not a familiar concept beforehand. Bundle configuration can also be a little bit confusing, since there are multiple ways to do it and the best approach depends on the situation.
+            <%- marked(post.intro) %>
             <div class="clearfix"></div>
             <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps"><span class="glyphicon glyphicon-eye-open"></span> czytaj</a>
             <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps btn-comment"><span class="glyphicon glyphicon-comment"></span> komentuj</a>
             <div class="clearfix"></div>
         </p>
-        <small class="tutorial-metadata">20.12.2014r, 17:19, author: Mateusz Nowak</small>
+        <small class="tutorial-metadata">
+            20.12.2014r, 17:19, author: <%= post.author ? post.author : '@noname' %>
+            <% if (post.twitter) { %>
+                <span class="twitter">(<a href="http://twitter.com/<%= post.twitter.substr(1) %>" rel="nofollow"><%= post.twitter %></a>)</span>
+            <% } %>
+        </small>
     </article>
-    <article class="tutorial">
-        <p class="lead tutorial-title">
-            <a class="lead" href="/tutorial/1">Understanding Symfony Bundle Configuration and Service Container</a>
-            <div class="tutorial-tags">
-                <span class="label label-info caps">php</span>
-                <span class="label label-danger caps">mysql</span>
-                <span class="label label-warning caps">javascript</span>
-            </div>
-        </p>
-        <p class="tutorial-description">
-            In this post we’ll cover different ways on how to configure Bundles in Symfony2 and how the dependency injection container works with the configuration. The Bundle configuration and Symfony dependency injection container (also known as service container) can be difficult concepts to grasp when first starting development with Symfony2, especially if dependency injection is not a familiar concept beforehand. Bundle configuration can also be a little bit confusing, since there are multiple ways to do it and the best approach depends on the situation.
-            <div class="clearfix"></div>
-            <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps"><span class="glyphicon glyphicon-eye-open"></span> czytaj</a>
-            <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps btn-comment"><span class="glyphicon glyphicon-comment"></span> komentuj</a>
-            <div class="clearfix"></div>
-        </p>
-        <small class="tutorial-metadata">20.12.2014r, 17:19, author: Mateusz Nowak</small>
-    </article>
-    <article class="tutorial">
-        <p class="lead tutorial-title">
-            <a class="lead" href="/tutorial/1">Understanding Symfony Bundle Configuration and Service Container</a>
-            <div class="tutorial-tags">
-                <span class="label label-info caps">php</span>
-                <span class="label label-danger caps">mysql</span>
-                <span class="label label-warning caps">javascript</span>
-            </div>
-        </p>
-        <p class="tutorial-description">
-            In this post we’ll cover different ways on how to configure Bundles in Symfony2 and how the dependency injection container works with the configuration. The Bundle configuration and Symfony dependency injection container (also known as service container) can be difficult concepts to grasp when first starting development with Symfony2, especially if dependency injection is not a familiar concept beforehand. Bundle configuration can also be a little bit confusing, since there are multiple ways to do it and the best approach depends on the situation.
-            <div class="clearfix"></div>
-            <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps"><span class="glyphicon glyphicon-eye-open"></span> czytaj</a>
-            <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps btn-comment"><span class="glyphicon glyphicon-comment"></span> komentuj</a>
-            <div class="clearfix"></div>
-        </p>
-        <small class="tutorial-metadata">20.12.2014r, 17:19, author: Mateusz Nowak</small>
-    </article>
-    <article class="tutorial">
-        <p class="lead tutorial-title">
-            <a class="lead" href="/tutorial/1">Understanding Symfony Bundle Configuration and Service Container</a>
-            <div class="tutorial-tags">
-                <span class="label label-info caps">php</span>
-                <span class="label label-danger caps">mysql</span>
-                <span class="label label-warning caps">javascript</span>
-            </div>
-        </p>
-        <p class="tutorial-description">
-            In this post we’ll cover different ways on how to configure Bundles in Symfony2 and how the dependency injection container works with the configuration. The Bundle configuration and Symfony dependency injection container (also known as service container) can be difficult concepts to grasp when first starting development with Symfony2, especially if dependency injection is not a familiar concept beforehand. Bundle configuration can also be a little bit confusing, since there are multiple ways to do it and the best approach depends on the situation.
-            <div class="clearfix"></div>
-            <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps"><span class="glyphicon glyphicon-eye-open"></span> czytaj</a>
-            <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps btn-comment"><span class="glyphicon glyphicon-comment"></span> komentuj</a>
-            <div class="clearfix"></div>
-        </p>
-        <small class="tutorial-metadata">20.12.2014r, 17:19, author: Mateusz Nowak</small>
-    </article>
-    <article class="tutorial">
-        <p class="lead tutorial-title">
-            <a class="lead" href="/tutorial/1">Understanding Symfony Bundle Configuration and Service Container</a>
-            <div class="tutorial-tags">
-                <span class="label label-info caps">php</span>
-                <span class="label label-danger caps">mysql</span>
-                <span class="label label-warning caps">javascript</span>
-            </div>
-        </p>
-        <p class="tutorial-description">
-            In this post we’ll cover different ways on how to configure Bundles in Symfony2 and how the dependency injection container works with the configuration. The Bundle configuration and Symfony dependency injection container (also known as service container) can be difficult concepts to grasp when first starting development with Symfony2, especially if dependency injection is not a familiar concept beforehand. Bundle configuration can also be a little bit confusing, since there are multiple ways to do it and the best approach depends on the situation.
-            <div class="clearfix"></div>
-            <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps"><span class="glyphicon glyphicon-eye-open"></span> czytaj</a>
-            <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps btn-comment"><span class="glyphicon glyphicon-comment"></span> komentuj</a>
-            <div class="clearfix"></div>
-        </p>
-        <small class="tutorial-metadata">20.12.2014r, 17:19, author: Mateusz Nowak</small>
-    </article>
-    <article class="tutorial">
-        <p class="lead tutorial-title">
-            <a class="lead" href="/tutorial/1">Understanding Symfony Bundle Configuration and Service Container</a>
-            <div class="tutorial-tags">
-                <span class="label label-info caps">php</span>
-                <span class="label label-danger caps">mysql</span>
-                <span class="label label-warning caps">javascript</span>
-            </div>
-        </p>
-        <p class="tutorial-description">
-            In this post we’ll cover different ways on how to configure Bundles in Symfony2 and how the dependency injection container works with the configuration. The Bundle configuration and Symfony dependency injection container (also known as service container) can be difficult concepts to grasp when first starting development with Symfony2, especially if dependency injection is not a familiar concept beforehand. Bundle configuration can also be a little bit confusing, since there are multiple ways to do it and the best approach depends on the situation.
-            <div class="clearfix"></div>
-            <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps"><span class="glyphicon glyphicon-eye-open"></span> czytaj</a>
-            <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps btn-comment"><span class="glyphicon glyphicon-comment"></span> komentuj</a>
-            <div class="clearfix"></div>
-        </p>
-        <small class="tutorial-metadata">20.12.2014r, 17:19, author: Mateusz Nowak</small>
-    </article>
+<% }) %>
+<%- pager.render() %>
 </section>

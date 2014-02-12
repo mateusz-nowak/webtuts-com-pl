@@ -137,3 +137,34 @@ footer {
         top: 2px;
     }
 }
+
+.section-tutorials {
+    .tutorial {
+        img {
+            max-width: 100%;
+        }
+        .type-rss {
+            background: #FFA01C;
+            color: #fff;
+            @extend .caps;
+            padding: 5px;
+            margin-right: 10px;
+            font-weight: 700;
+        }
+    }
+    .twitter, .twitter a {
+        font-weight: 700;
+        color: #000;
+    }
+}
+
+.text--center {
+    text-align: center;
+}
+
+.paginator {
+    @extend .text--center;
+    a {
+        padding: 5px;
+    }
+}
