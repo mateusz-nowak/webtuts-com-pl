@@ -264,3 +264,18 @@ footer {
         }
     }
 }
+
+img[alt=about-author-image] {
+    width: 150px;
+    height: 150px;
+    padding: 2px;
+    border: 1px solid #eee;
+    margin: 0 10px 0 10px;
+    float: left;
+}
+
+.contents-content {
+    h1, h2, h3, h4, h5, h6, h7 {
+        font-weight: 300;
+    }
+}
