@@ -17,20 +17,17 @@
                         <div class="slogan">tips&amp;tricks and tutorials for developers</div>
                     </h1>
                 </div>
-                <div class="statistics">
-                    <% if (!user) { %>
-                        <a class="btn btn-login btn-default" href="/auth/github"><span class="glyphicon glyphicon-user" /> Zaloguj</a>
-                    <% } else { %>
-                        <div class="auth-info">
-                            <img src="<%= user._json.avatar_url %>" />
-                            <span class="user-info">Zalogowany jako: <span class="bold user-name">@<%= user.username %></span></span>
-                        </div>
-                        <a class="btn btn-xs btn-login btn-default" href="/auth/logout"><span class="glyphicon glyphicon-user" /> Wyloguj</a>
-                    <% } %>
-
-                    <div>Łącznie tutoriali: <span class="bold">130</span></div>
-                    <div>Online: <span class="bold">17</span></div>
-                </div>
+                <% if (user) { %>
+                    <div class="statistics">
+                            <div class="auth-info">
+                                <img src="<%= user.gravatar %>" />
+                                <span class="user-info">
+                                    <span class="bold user-name">@<%= user.github %></span>
+                                    <a class="btn-logout" href="/auth/logout"><span class="glyphicon glyphicon-off"></span></a>
+                                </span>
+                            </div>
+                    </div>
+                <% } %>
                 <div class="clearfix"></div>
             </div>
             <nav class="navbar navbar-inverse">
@@ -40,16 +37,30 @@
                     <a class="btn btn-default"><span class="glyphicon glyphicon-envelope" /> Autorzy</a>
                 </div>
                 <div class="navbar-form navbar-right">
-                    <a class="btn btn-default"><span class="glyphicon glyphicon-pencil" /> <span class="bold">Napisz</span></a>
+                    <% if (!user) { %>
+                        <a class="btn btn-default" href="/auth/github"><span class="glyphicon glyphicon-user" /> Zaloguj</a>
+                    <% } else { %>
+                        <a class="btn btn-default"><span class="glyphicon glyphicon-pencil" /> <span class="bold">Napisz</span></a>
+                    <% } %>
                 </div>
             </nav>
+            <div class="clearfix"></div>
         </header>
+        <div class="clearfix"></div>
+        <% if (flash.notice.length) { %>
+            <div class="alert alert-success"><%= flash.notice %></div>
+        <% } %>
         <section class="container-base">
             <section class="container-sidebar">
                 <p class="lead lead-sidebar caps bold">Kategorie</p>
                 <ul class="nav nav-pills nav-stacked nav-categories">
                     <% categories.forEach(function(category) { %>
-                        <li><a href="/categories/<%= category.slug %>"><%= category.name %></a></li>
+                        <li>
+                            <a href="/categories/<%= category.slug %>">
+                                <span class="glyphicon glyphicon-minus"></span>
+                                <%= category.name %>
+                            </a>
+                        </li>
                     <% }) %>
                 </ul>
                 <p class="lead caps bold lead-sidebar lead-search">Przeszukaj</p>

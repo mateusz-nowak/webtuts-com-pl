@@ -4,10 +4,8 @@ var yaml = require('yamljs');
 var path = require('path');
 var sass = require('node-sass');
 var livereload = require('express-livereload');
-livereload(app, config={});
 
 app.configure('development', function() {
-
     app.set('configuration', yaml.load('config/development.yml'));
     app.use(express.errorHandler());
     app.use(sass.middleware({
@@ -27,38 +25,38 @@ app.configure('production', function() {
     }));
 });
 
+var client = require('mongoose');
+var db = client.connection;
+var config = app.get('configuration').mongo;
+
 app.configure(function() {
-    app.use(function(req, res, next) {
-        var client = require('mongodb').MongoClient;
-        var config = req.app.get('configuration').mongo;
+    client.connect('mongodb://' + config.host + ':' + config.port + '/' + config.database);
 
-        client.connect('mongodb://' + config.host + ':' + config.port + '/' + config.database, config.options || {}, function(err, db) {
-            if (err) {
-                next(err);
-            }
-            req.mongo = db;
-
-            next();
-        });
+    db.once('open', function() {
+        console.log('Connected to mongo.');
     });
+    db.on('error', function(err) {
+        console.warn(err);
+    });
+    livereload(app, config={});
     app.use(express.json());
     app.use(express.bodyParser());
     app.use(express.urlencoded());
     app.use(express.methodOverride());
-    app.use(express.cookieParser());
     app.use(app.router);
+    app.use(express.cookieParser('keyboard cat'));
     app.use(express.session({
         secret: 'secret-hash',
         expires: new Date(Date.now() + 360000),
         maxAge: 360000
     }));
+    app.use(require('connect-flash')());
     app.use(express.static(path.join(__dirname, 'public')));
     module.paths.push(__dirname+ '/src');
 });
 
 app.use(require('auth'));
-app.use(require('posts'));
-// app.use(require('categories'));
-app.use(require('admin'));
+app.use(require('frontend'));
+//app.use(require('backend'));
 
 module.exports = app;

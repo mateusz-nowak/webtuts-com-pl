@@ -1,6 +1,10 @@
 @import 'bootstrap.scss';
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,500);
 
+body {
+    background: url('/images/bg.jpg') no-repeat top center;
+}
+
 .navbar-small {
     font-size: 0.5em;
 }
@@ -13,9 +17,15 @@
     @extend .col-lg-3;
     padding-left: 0;
     .nav-categories {
-        margin-bottom: 20px;
-        li a {
-            border-bottom: 1px solid #eee;
+        margin-bottom: 40px;
+        li {
+            a {
+                color: #000;
+                &:hover {
+                    text-decoration: underline;
+                    font-weight: 400;
+                }
+            }
         }
     }
     .lead-search {
@@ -47,6 +57,9 @@
 }
 
 header {
+    height: 250px;
+    position: relative;
+
     h1 {
         font-weight: 300 !important;
         font-family: 'Raleway', sans-serif;
@@ -62,7 +75,7 @@ header {
         font-weight: 300;
     }
     .navbar {
-        margin-top: 10px;
+        margin-top: 80px;
     }
 }
 
@@ -95,7 +108,8 @@ footer {
 }
 
 .lead-sidebar {
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 300 !important;
 }
 
 .bold {
@@ -104,15 +118,17 @@ footer {
 
 .container-logo {
     @extend .row;
+    color: #cff5ff;
     .logo {
+        padding-top: 50px;
         @extend .col-lg-8;
     }
     .statistics {
+        padding-top: 10px;
         @extend .col-lg-4;
         @extend .text--right;
         @extend .caps;
         color: #666;
-        padding-top: 10px;
         font-size: 11px;
     }
 }
@@ -126,6 +142,7 @@ footer {
 }
 
 .auth-info {
+    color: #cff5ff;
     img {
         width: 25px;
         height: 25px;
@@ -133,7 +150,14 @@ footer {
         padding: 1px;
     }
     .user-info {
+        .btn-logout {
+            color: #ff0000;
+            font-weight: 700;
+        }
         position: relative;
+        text-transform: none;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 2px;
         top: 2px;
     }
 }
@@ -167,4 +191,8 @@ footer {
     a {
         padding: 5px;
     }
+}
+
+.container-base {
+    margin-top: 30px;
 }

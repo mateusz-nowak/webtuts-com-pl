@@ -2,6 +2,7 @@ var express = require('express');
 var engine = require('ejs-locals');
 var passport = require('passport');
 var gitHubStrategy = require('passport-github').Strategy;
+var User = require('./models/user');
 var app = module.exports = express();
 
 app.use(passport.initialize());
@@ -30,15 +31,6 @@ app.get('/auth/github', passport.authenticate('github'));
 app.get('/auth/github/callback', passport.authenticate('github', {
     failureRedirect: '/login'
 }), function(req, res) {
-    var collection = req.mongo.collection('users');
-
-    collection.update({ githubId: req.user.id }, {$set: req.user}, { upsert: true}, function(err, data) {
-        if (err) {
-            console.warn(err.message);
-        }
-        console.log(data);
-    });
-
     res.redirect('/');
 });
 
@@ -49,15 +41,25 @@ app.get('/auth/logout', function(req, res){
 });
 
 app.use(function(req, res, next) {
-    var collection = req.mongo.collection('users');
+    res.locals.flash = {
+        notice: req.flash('notice'),
+        error: req.flash('error'),
+        info: req.flash('info')
+    };
 
     if (!req.user) {
         res.locals.user = null;
         return next();
     }
 
-    collection.findOne({ githubId: req.user.id }, function(err, user) {
-        res.locals.user = user;
-        next();
+    User.update({ github: req.user.username }, {
+        fullName: req.user.displayName,
+        gravatar: req.user._json.avatar_url,
+        github: req.user.username
+    }, { upsert: true }, function(err, rows, resp) {
+        User.findOne({ github: req.user.username }, function(err, doc) {
+            res.locals.user = doc;
+            next();
+        });
     });
 });

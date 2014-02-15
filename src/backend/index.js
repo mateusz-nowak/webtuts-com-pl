@@ -9,6 +9,14 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.use(validation());
 
+app.use('/admin', function(req, res, next) {
+    if (!req.user) {
+        res.redirect('/');
+    }
+
+    next();
+});
+
 // GET /admin
 app.get('/admin', route.dashboard);
 
