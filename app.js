@@ -57,6 +57,6 @@ app.configure(function() {
 
 app.use(require('auth'));
 app.use(require('frontend'));
-//app.use(require('backend'));
+app.use(require('backend'));
 
 module.exports = app;

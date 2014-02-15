@@ -1,6 +1,3 @@
-var ObjectID = require('mongodb').ObjectID;
-var mongoJoin = require('mongo-join').Join;
-
 module.exports = {
     dashboard: function(req, res) {
         res.render('dashboard');
