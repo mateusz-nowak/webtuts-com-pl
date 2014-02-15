@@ -1,18 +1,24 @@
+Category = require('./category')
 mongoose = require("mongoose")
+
 module.exports = mongoose.model("Post", mongoose.Schema(
-  title: String
-  intro: String
-  description: String
+  title:
+    type: String
+    default: ''
+  intro:
+    type: String
+    default: ''
+  content:
+    type: String
+    default: ''
   createdAt:
     type: Date
     default: Date.now
-
   active:
     type: Boolean
     default: false
-
   tags: Array
   category:
-    type: mongoose.Types.ObjectId
-    ref: "Category"
+    type: mongoose.Schema.Types.ObjectId
+    ref: Category
 ))

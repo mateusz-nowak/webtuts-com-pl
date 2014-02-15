@@ -17,7 +17,10 @@
     <tbody>
         <% posts.forEach(function(post) { %>
             <tr>
-                <td><%= post.title %></td>
+                <td>
+                    <%= post.title %><br/>
+                    <small><%= post.tags %></small>
+                </td>
                 <td><%= (post.category ? post.category.name : '-') %></td>
                 <td>
                     <%= post.active == true ? 'Aktywny' : 'Nieaktywny' %>

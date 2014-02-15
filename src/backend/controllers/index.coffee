@@ -1,3 +1,6 @@
+Category = require('../../frontend/models/category')
+Post = require('../../frontend/models/post')
+
 module.exports =
   dashboard: (req, res) ->
     res.render "dashboard"
@@ -5,41 +8,30 @@ module.exports =
 
   posts:
     index: (req, res) ->
-      req.mongo.collection("posts").find {}, (err, cursor) ->
-        join = new mongoJoin(req.mongo).on(
-          field: "category"
-          to: "_id"
-          from: "categories"
-        ).toArray(cursor, (errr, posts) ->
-          res.render "posts/index",
-            posts: posts
-
-          return
-        )
-        return
+      Post.find {}, {},
+        sort:
+            createdAt: -1
+      ,(err, posts) ->
+        res.render "posts/index",
+          posts: posts
 
       return
 
     show: (req, res) ->
-      new mongoJoin(req.mongo).on(
-        field: "category"
-        to: "_id"
-        from: "categories"
-      ).findOne req.mongo.collection("posts"),
-        _id: new ObjectID(req.params.id)
-      , [], (err, post) ->
-        marked = require("marked")
-        post.markedIntro = marked(post.intro)
-        post.markedContent = marked(post.content)
-        res.render "posts/show",
-          post: post
-
-        return
+      Post.findOne
+          _id: req.params.id, (err, post) ->
+            marked = require("marked")
+            if post.intro
+              post.markedIntro = marked(post.intro)
+            if post.content
+              post.markedContent = marked(post.content)
+            res.render "posts/show",
+              post: post
 
       return
 
     create: (req, res) ->
-      req.mongo.collection("categories").find({}).toArray (err, categories) ->
+      Category.find {}, (err, categories) ->
         res.render "posts/new",
           errors: []
           categories: categories
@@ -50,21 +42,14 @@ module.exports =
       return
 
     edit: (req, res) ->
-      req.mongo.collection("categories").find({}).toArray (err, categories) ->
-        req.mongo.collection("posts").find
-          _id: new ObjectID(req.params.id)
+      Category.find (err, categories) ->
+        Post.findOne
+          _id: req.params.id
         , (err, post) ->
-          post.next (err, post) ->
             res.render "posts/edit",
               post: post
               errors: []
               categories: categories
-
-            return
-
-          return
-
-        return
 
       return
 
@@ -73,7 +58,7 @@ module.exports =
       req.checkBody("intro", "Zajawka artykułu nie może być pusta").notEmpty()
       req.checkBody("content", "Treść artykułu nie może być pusta").notEmpty()
       req.checkBody("category", "Kategoria nie może być pusta").notEmpty()
-      req.mongo.collection("categories").find({}).toArray (err, categories) ->
+      Category.find (err, categories) ->
         errors = req.validationErrors(true)
         if errors
           return res.render("posts/new",
@@ -81,9 +66,10 @@ module.exports =
             categories: categories
             post: req.body
           )
-        req.mongo.collection("posts").insert req.body, (err, docs) ->
+        req.body.tags = req.body.tags.split(',')
+        post = new Post(req.body)
+        post.save (err, post) ->
           res.redirect "/admin/posts"
-          return
 
         return
 
@@ -94,7 +80,7 @@ module.exports =
       req.checkBody("intro", "Zajawka artykułu nie może być pusta").notEmpty()
       req.checkBody("content", "Treść artykułu nie może być pusta").notEmpty()
       req.checkBody("category", "Kategoria nie może być pusta").notEmpty()
-      req.mongo.collection("categories").find({}).toArray (err, categories) ->
+      Category.find (err, categories) ->
         errors = req.validationErrors(true)
         if errors
           post = req.body
@@ -104,10 +90,11 @@ module.exports =
             categories: categories
             post: post
           )
-        req.mongo.collection("posts").update
-          _id: new ObjectID(req.params.id)
+        req.body.tags = req.body.tags.split(',')
+        Post.update
+          _id: req.params.id
         ,
-          $set: req.body
+          req.body
         , (err, docs) ->
           res.redirect "/admin/posts"
           return
@@ -117,8 +104,8 @@ module.exports =
       return
 
     destroy: (req, res) ->
-      req.mongo.collection("posts").remove
-        _id: new ObjectID(req.params.id)
+      Post.remove
+        _id: req.params.id
       , (err, docs) ->
         res.redirect "/admin/posts"
         return
@@ -126,11 +113,10 @@ module.exports =
       return
 
     activate: (req, res) ->
-      req.mongo.collection("posts").update
-        _id: new ObjectID(req.params.id)
+      Post.update
+        _id: req.params.id
       ,
-        $set:
-          active: true
+        active: true
       , (err, docs) ->
         res.redirect "/admin/posts"
         return
@@ -139,11 +125,9 @@ module.exports =
 
   categories:
     index: (req, res) ->
-      req.mongo.collection("categories").find({}).toArray (err, categories) ->
+      Category.find {}, (err, categories) ->
         res.render "categories/index",
           categories: categories
-
-        return
 
       return
 
@@ -164,16 +148,18 @@ module.exports =
         )
       slug = require("slug")
       req.body.slug = slug(req.body.name).toLowerCase()
-      req.mongo.collection("categories").insert req.body, (err, docs) ->
+      category = new Category req.body
+      category.save (err, docs) ->
         res.redirect "/admin/categories"
         return
 
       return
 
     destroy: (req, res) ->
-      req.mongo.collection("categories").remove
-        _id: new ObjectID(req.params.id)
+      Category.remove
+        _id: req.params.id
       , (err, docs) ->
+        req.flash('notice', 'Usunięto')
         res.redirect "/admin/categories"
         return
 
