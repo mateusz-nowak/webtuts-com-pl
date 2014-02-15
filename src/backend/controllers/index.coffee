@@ -38,7 +38,7 @@ module.exports =
 
       return
 
-    new: (req, res) ->
+    create: (req, res) ->
       req.mongo.collection("categories").find({}).toArray (err, categories) ->
         res.render "posts/new",
           errors: []
@@ -116,7 +116,7 @@ module.exports =
 
       return
 
-    delete: (req, res) ->
+    destroy: (req, res) ->
       req.mongo.collection("posts").remove
         _id: new ObjectID(req.params.id)
       , (err, docs) ->
@@ -147,7 +147,7 @@ module.exports =
 
       return
 
-    new: (req, res) ->
+    create: (req, res) ->
       res.render "categories/new",
         errors: []
         category: {}
@@ -170,7 +170,7 @@ module.exports =
 
       return
 
-    delete: (req, res) ->
+    destroy: (req, res) ->
       req.mongo.collection("categories").remove
         _id: new ObjectID(req.params.id)
       , (err, docs) ->
