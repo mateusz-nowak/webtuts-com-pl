@@ -1,10 +1,16 @@
+mongoose = require 'mongoose'
+paginate = require('mongoose-pager')(mongoose)
+
 Post = require '../models/post'
 
+PER_PAGE = 2
+
 module.exports.index = (req, res) ->
-  Post.find {}, (err, posts) ->
-    res.render "index",
-      posts: posts
-      marked: require 'marked'
+  Post
+    .find {}
+    .paginate parseInt(req.params.page || 1), PER_PAGE, (err, posts, total) ->
+      res.render "index",
+        posts: posts
 
   return
 

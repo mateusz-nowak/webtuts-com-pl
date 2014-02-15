@@ -3,7 +3,7 @@
 <section class="section-tutorials">
 <% posts.forEach(function(post) { %>
     <article class="tutorial">
-        <p class="lead tutorial-title">
+        <p class="tutorial-title">
         <% if (post.link) { %>
             <a class="lead" href="<%= post.link %>"><span class="type-rss">rss</span><%= post.title %></a>
         <% } else { %>
@@ -11,19 +11,21 @@
         <% } %>
             <div class="tutorial-tags">
                 <% if (post.tags) { %>
-                    <%= post.tags %>
+                  <% post.tags.forEach(function(tag) { %>
+                    <span class="tag tag-<%= tag %>"><a href=""><%= tag %></a></span>
+                  <% }) %>
                 <% } %>
             </div>
         </p>
         <p class="tutorial-description">
-            <%- marked(post.intro) %>
+            <%- post.introFormatted %>
             <div class="clearfix"></div>
             <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps"><span class="glyphicon glyphicon-eye-open"></span> czytaj</a>
             <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps btn-comment"><span class="glyphicon glyphicon-comment"></span> komentuj</a>
             <div class="clearfix"></div>
         </p>
         <small class="tutorial-metadata">
-            20.12.2014r, 17:19, author: <%= post.author ? post.author : '@noname' %>
+          <%= post.createdAtFormatted %>, author: <%= post.author ? post.author : '@noname' %>
             <% if (post.twitter) { %>
                 <span class="twitter">(<a href="http://twitter.com/<%= post.twitter.substr(1) %>" rel="nofollow"><%= post.twitter %></a>)</span>
             <% } %>

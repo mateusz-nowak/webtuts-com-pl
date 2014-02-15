@@ -1,10 +1,14 @@
-Category = require('./category')
-mongoose = require("mongoose")
+Category = require './category'
+mongoose = require 'mongoose'
+moment = require 'moment'
+marked = require 'marked'
 
-module.exports = mongoose.model("Post", mongoose.Schema(
+schema = mongoose.Schema(
   title:
     type: String
     default: ''
+  slug:
+    type: String
   intro:
     type: String
     default: ''
@@ -23,4 +27,15 @@ module.exports = mongoose.model("Post", mongoose.Schema(
   category:
     type: mongoose.Schema.Types.ObjectId
     ref: 'Category'
-))
+)
+
+schema.virtual('createdAtFormatted').get ->
+  return moment(this.createdAt).format 'YYYY/MM/D h:mm:ss'
+
+schema.virtual('contentFormatted').get ->
+  return marked(this.content)
+
+schema.virtual('introFormatted').get ->
+  return marked(this.intro)
+
+module.exports = mongoose.model("Post", schema)

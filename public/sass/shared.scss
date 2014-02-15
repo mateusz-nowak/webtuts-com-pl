@@ -1,5 +1,6 @@
 @import 'bootstrap.scss';
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,500);
+@import url(http://fonts.googleapis.com/css?family=Exo+2:400,200);
 
 body {
     background: url('/images/bg.jpg') no-repeat top center;
@@ -80,9 +81,11 @@ header {
 }
 
 footer {
+    background: url('/images/footer.jpg') no-repeat;
     margin-top: 10px;
     .navbar-footer {
         color: #999;
+        padding-top: 30px;
     }
 }
 
@@ -164,6 +167,42 @@ footer {
 
 .section-tutorials {
     .tutorial {
+        .tutorial-title, .tutorial-title a {
+            font-size: 30px !important;
+            font-family: 'Exo 2', sans-serif;
+            color: #000;
+            font-weight: 500;
+        }
+        h1, h2, h3, h4, h5, h6, h7 {
+            font-weight: 300;
+        }
+        .tutorial-tags {
+            .tag {
+                &, a {
+                    padding: 3px;
+                    background: #999;
+                    color: #fff;
+                    font-size: 12px;
+                }
+                &.tag-mongo, &.tag-mongo a {
+                    background: #574724;
+                }
+                &.tag-mysql, &.tag-mysql a,
+                &.tag-redis, &.tag-redis a {
+                    background: red;
+                }
+                &.tag-php, &.tag-php a,
+                &.tag-node &.tag-node a,
+                &.tag-pylons &.tag-pylons a,
+                &.tag-turbogears &.tag-turbogears a {
+                    background: green;
+                }
+            }
+        }
+        font-size: 16px !important;
+        h1 {
+            font-size: 20px !important;
+        }
         img {
             max-width: 100%;
         }

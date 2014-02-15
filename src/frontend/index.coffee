@@ -3,9 +3,10 @@ engine = require("ejs-locals")
 main = require("./controllers")
 app = module.exports = express()
 app.use (req, res, next) ->
-  res.locals.categories = []
-  next()
-  return
+  Category = require('./models/category')
+  Category.find {}, (err, categories) ->
+    res.locals.categories = categories
+    next()
 
 app.engine "ejs", engine
 app.set "view engine", "ejs"
