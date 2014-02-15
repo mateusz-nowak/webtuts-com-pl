@@ -1,6 +1,7 @@
 Post = require '../../frontend/models/post'
 Category = require '../../frontend/models/category'
 Content = require '../../frontend/models/content'
+User = require '../../auth/models/user'
 
 module.exports =
   dashboard: (req, res) ->
@@ -21,9 +22,38 @@ module.exports =
 
       return
 
+    update: (req, res) ->
+      Content.findOne
+        _id: req.params.id
+      , (err, content) ->
+        form = require '../forms/create-content'
+
+        form.handle req.body,
+          success: (form) ->
+            Content.update
+              _id: req.params.id
+            , req.body, (err, result) ->
+
+          error: (err) ->
+            console.warn err
+
+        res.render 'contents/edit',
+          form: form.toHTML()
+          content: content
+
+    edit: (req, res) ->
+      Content.findOne
+        _id: req.params.id
+      , (err, content) ->
+        form = require '../forms/create-content'
+        form.bind content
+
+        res.render 'contents/edit',
+          form: form.toHTML()
+          content: content
 
     post: (req, res) ->
-      form = require('../forms/create-content')
+      form = require '../forms/create-content'
 
       form.handle req.body,
         success: (form) ->
@@ -161,6 +191,12 @@ module.exports =
         return
 
       return
+
+  users:
+    index: (req, res) ->
+      User.find {}, (err, users) ->
+        res.render 'users/index',
+          users: users
 
   categories:
     index: (req, res) ->

@@ -1,0 +1,22 @@
+<%- layout('../layout') %>
+
+<h2 class="lead">Lista użytkowników</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Imię i nazwisko</th>
+            <th>Login github</th>
+            <th>Ostatnia aktywność</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% users.forEach(function(user) { %>
+            <tr>
+                <td><%= user.fullName %></td>
+                <td><%= user.github %></td>
+                <td><%= user.lastActivityInWords %></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>

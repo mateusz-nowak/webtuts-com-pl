@@ -1,0 +1,13 @@
+<%- layout('../layout') %>
+
+<div class="list-actions">
+    <a href="/admin/contents" class="btn btn-primary caps">Lista</a>
+</div>
+
+<h2 class="lead">Edytuj podstronę</h2>
+
+<form action="/admin/contents/<%= content._id %>" method="post">
+  <input type="hidden" name="_method" value="PUT" />
+  <%- form %>
+  <input class="btn btn-default" type="submit" value="Zapisz" />
+</form>

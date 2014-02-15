@@ -25,3 +25,6 @@ module.exports.contents.show = (req, res) ->
     slug: req.params.slug, (err, content) ->
       res.render 'contents/show',
         content: content
+
+module.exports.notFound = (req, res) ->
+  res.render '404'

@@ -39,7 +39,7 @@ app.configure ->
   return
 
 app.use require 'auth'
-app.use require 'frontend'
 app.use require 'backend'
+app.use require 'frontend'
 
 module.exports = app

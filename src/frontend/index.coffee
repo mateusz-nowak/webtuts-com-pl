@@ -17,3 +17,6 @@ app.get "/", main.index
 
 # GET /page/:slug
 app.get '/page/:slug', main.contents.show
+
+# GET *
+app.get '*', main.notFound
