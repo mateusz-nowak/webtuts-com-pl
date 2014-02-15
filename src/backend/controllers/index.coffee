@@ -1,10 +1,48 @@
-Post = require('../../frontend/models/post')
-Category = require('../../frontend/models/category')
+Post = require '../../frontend/models/post'
+Category = require '../../frontend/models/category'
+Content = require '../../frontend/models/content'
 
 module.exports =
   dashboard: (req, res) ->
     res.render "dashboard"
     return
+
+  contents:
+    index: (req, res) ->
+      Content.find {}, (err, contents) ->
+        res.render 'contents/index',
+          contents: contents
+
+    destroy: (req, res) ->
+      Content.remove
+        _id: req.params.id
+      , (err, docs) ->
+        res.redirect "/admin/contents"
+
+      return
+
+
+    post: (req, res) ->
+      form = require('../forms/create-content')
+
+      form.handle req.body,
+        success: (form) ->
+          slug = require 'slug'
+          c = new Content req.body
+          c.slug = slug(req.body.title).toLowerCase()
+          c.save (err, insert) ->
+          res.redirect "/admin/contents"
+
+        error: (form) ->
+
+      res.render 'contents/create',
+        form: form.toHTML()
+
+    create: (req, res) ->
+      form = require('../forms/create-content')
+
+      res.render 'contents/create',
+        form: form.toHTML()
 
   posts:
     index: (req, res) ->

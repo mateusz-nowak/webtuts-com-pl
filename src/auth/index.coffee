@@ -29,12 +29,16 @@ app.get "/auth/github", passport.authenticate("github")
 app.get "/auth/github/callback", passport.authenticate("github",
   failureRedirect: "/login"
 ), (req, res) ->
+  req.flash 'notice', 'Witaj, ' + req.user.displayName
+
   res.redirect "/"
   return
 
 
 # GET /authlogout
 app.get "/auth/logout", (req, res) ->
+  req.flash 'notice', 'Zostałeś poprawnie wylogowany'
+
   req.logout()
   res.redirect "/"
   return
@@ -45,26 +49,35 @@ app.use (req, res, next) ->
     error: req.flash("error")
     info: req.flash("info")
 
-  unless req.user
-    res.locals.user = null
-    return next()
-  User.update
-    github: req.user.username
-  ,
-    fullName: req.user.displayName
-    gravatar: req.user._json.avatar_url
-    github: req.user.username
-  ,
-    upsert: true
-  , (err, rows, resp) ->
-    User.findOne
+  moment = require 'moment'
+
+  User.find
+    lastActivity:
+      $gte: moment().subtract('minutes', 10)
+  , (err, users) ->
+    res.locals.online = users
+
+    unless req.user
+      res.locals.user = null
+      return next()
+    User.update
       github: req.user.username
-    , (err, doc) ->
-      res.locals.user = doc
-      next()
+    ,
+      fullName: req.user.displayName
+      gravatar: req.user._json.avatar_url
+      github: req.user.username
+      lastActivity: Date.now()
+    ,
+      upsert: true
+    , (err, rows, resp) ->
+      User.findOne
+        github: req.user.username
+      , (err, doc) ->
+        res.locals.user = doc
+        next()
+        return
+
       return
 
     return
-
-  return
 

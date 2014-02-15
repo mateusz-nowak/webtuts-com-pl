@@ -11,4 +11,9 @@ app.use (req, res, next) ->
 app.engine "ejs", engine
 app.set "view engine", "ejs"
 app.set "views", __dirname + "/views"
+
+# GET /
 app.get "/", main.index
+
+# GET /page/:slug
+app.get '/page/:slug', main.contents.show

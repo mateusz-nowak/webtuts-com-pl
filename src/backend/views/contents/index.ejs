@@ -1,0 +1,32 @@
+<%- layout('../layout') %>
+
+<div class="list-actions">
+    <a href="/admin/contents/new" class="btn btn-primary caps">Dodaj</a>
+</div>
+
+<h2 class="lead">Lista Podstron Statycznych</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tytuł</th>
+            <th>Slug</th>
+            <th class="text--right">Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% contents.forEach(function(content) { %>
+            <tr>
+                <td>
+                    <%= content.title %><br/>
+                </td>
+                <td><%= content.slug %></td>
+                <td class="text--right">
+                    <a class="btn btn-default btn-sm" href="/admin/contents/<%= content._id %>/edit">Edytuj</a>
+                    <a class="btn btn-danger btn-sm" href="/admin/contents/<%= content._id %>/delete">Usuń</a>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+

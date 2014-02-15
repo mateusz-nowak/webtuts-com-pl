@@ -1,0 +1,12 @@
+<%- layout('../layout') %>
+
+<div class="list-actions">
+    <a href="/admin/contents" class="btn btn-primary caps">Lista</a>
+</div>
+
+<h2 class="lead">Dodaj nową podstronę</h2>
+
+<form action="/admin/contents" method="post">
+  <%- form %>
+  <input class="btn btn-default" type="submit" value="Zapisz" />
+</form>

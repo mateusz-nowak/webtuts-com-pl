@@ -1,6 +1,7 @@
 mongoose = require 'mongoose'
 paginate = require('mongoose-pager')(mongoose)
 
+Content = require '../models/content'
 Post = require '../models/post'
 
 PER_PAGE = 2
@@ -17,3 +18,10 @@ module.exports.index = (req, res) ->
 module.exports.create = (req, res) ->
   res.render "create"
   return
+
+module.exports.contents = {}
+module.exports.contents.show = (req, res) ->
+  Content.findOne
+    slug: req.params.slug, (err, content) ->
+      res.render 'contents/show',
+        content: content

@@ -7,10 +7,10 @@ app.engine "ejs", engine
 app.set "view engine", "ejs"
 app.set "views", __dirname + "/views"
 app.use validation()
-app.use "/admin", (req, res, next) ->
-  res.redirect "/"  unless req.user
-  next()
-  return
+# app.use "/admin", (req, res, next) ->
+#   res.redirect "/"  unless req.user
+#   next()
+#   return
 
 
 # GET /admin
@@ -51,3 +51,15 @@ app.get "/admin/posts/:id/edit", route.posts.edit
 
 # PUT /admin/posts/:id/edit
 app.put "/admin/posts/:id", route.posts.update
+
+# GET /admin/contents
+app.get '/admin/contents', route.contents.index
+
+# GET /admin/contents/new
+app.get '/admin/contents/new', route.contents.create
+
+# POST /admin/contents
+app.post '/admin/contents', route.contents.post
+
+# GET /admin/contents/:id/delette
+app.get '/admin/contents/:id/delete', route.contents.destroy
