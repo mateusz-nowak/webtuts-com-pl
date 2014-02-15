@@ -1,6 +1,10 @@
+Post = require '../models/post'
+
 module.exports.index = (req, res) ->
-  res.render "index",
-    posts: []
+  Post.find {}, (err, posts) ->
+    res.render "index",
+      posts: posts
+      marked: require 'marked'
 
   return
 

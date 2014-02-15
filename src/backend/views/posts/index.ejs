@@ -19,7 +19,7 @@
             <tr>
                 <td>
                     <%= post.title %><br/>
-                    <small><%= post.tags %></small>
+                    <small><%= post.tags ? post.tags : '' %></small>
                 </td>
                 <td><%= post.category ? post.category.name : '-' %></td>
                 <td>
