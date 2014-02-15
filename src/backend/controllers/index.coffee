@@ -1,5 +1,5 @@
-Category = require('../../frontend/models/category')
 Post = require('../../frontend/models/post')
+Category = require('../../frontend/models/category')
 
 module.exports =
   dashboard: (req, res) ->
@@ -11,7 +11,8 @@ module.exports =
       Post.find {}, {},
         sort:
             createdAt: -1
-      ,(err, posts) ->
+      .populate 'category'
+      .exec (err, posts) ->
         res.render "posts/index",
           posts: posts
 

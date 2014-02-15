@@ -20,5 +20,5 @@ module.exports = mongoose.model("Post", mongoose.Schema(
   tags: Array
   category:
     type: mongoose.Schema.Types.ObjectId
-    ref: Category
+    ref: 'Category'
 ))

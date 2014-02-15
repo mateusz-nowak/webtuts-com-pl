@@ -29,14 +29,6 @@ db = client.connection
 config = app.get("configuration").mongo
 app.configure ->
   client.connect "mongodb://" + config.host + ":" + config.port + "/" + config.database
-  db.once "open", ->
-    console.log "Connected to mongo."
-    return
-
-  db.on "error", (err) ->
-    console.warn err
-    return
-
   livereload app, config = {}
   app.use express.json()
   app.use express.bodyParser()
