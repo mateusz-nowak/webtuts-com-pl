@@ -1,0 +1,7 @@
+<%- layout('layout') %>
+
+<div class="contents-content">
+    <h1>Znaleziono wyników: <%= pager.getPaginationData().totalResult %></h1>
+</div>
+
+<%- partial('index', { posts: posts, pager: pager }) %>

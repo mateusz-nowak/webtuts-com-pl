@@ -1,6 +1,11 @@
 <%- layout('layout') %>
 
 <section class="section-tutorials">
+<% if (posts.length == 0) { %>
+    <div class="alert alert-info">
+        Przepraszamy, ale w tej kategorii nie ma jeszcze żadnych tutoriali.
+    </div>
+<% } %>
 <% posts.forEach(function(post) { %>
     <article class="tutorial">
         <p class="tutorial-title">
@@ -12,7 +17,7 @@
             <div class="tutorial-tags">
                 <% if (post.tags) { %>
                   <% post.tags.forEach(function(tag) { %>
-                    <span class="tag tag-<%= tag %>"><a href=""><%= tag %></a></span>
+                    <span class="tag tag-<%= tag %>"><a href="/search?s=<%= tag %>"><%= tag %></a></span>
                   <% }) %>
                 <% } %>
             </div>
@@ -32,4 +37,5 @@
         </small>
     </article>
 <% }) %>
+<%- pager.render() %>
 </section>
