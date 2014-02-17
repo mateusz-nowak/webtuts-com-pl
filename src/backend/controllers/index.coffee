@@ -135,7 +135,11 @@ module.exports =
             categories: categories
             post: req.body
           )
+
+        slug = require 'slug'
+        req.body.slug = slug(req.body.title).toLowerCase()
         req.body.tags = req.body.tags.split(',')
+
         post = new Post(req.body)
         post.save (err, post) ->
           res.redirect "/admin/posts"
@@ -159,7 +163,10 @@ module.exports =
             categories: categories
             post: post
           )
+        slug = require 'slug'
+        req.body.slug = slug(req.body.title).toLowerCase()
         req.body.tags = req.body.tags.split(',')
+
         Post.update
           _id: req.params.id
         ,

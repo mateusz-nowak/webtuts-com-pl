@@ -1,4 +1,6 @@
-Category = require './category'
+require './category'
+require './comment'
+
 mongoose = require 'mongoose'
 moment = require 'moment'
 marked = require 'marked'
@@ -27,6 +29,10 @@ schema = mongoose.Schema(
   category:
     type: mongoose.Schema.Types.ObjectId
     ref: 'Category'
+  comments: [
+    type: mongoose.Schema.Types.ObjectId
+    ref: 'Comment'
+  ]
 )
 
 schema.virtual('createdAtFormatted').get ->

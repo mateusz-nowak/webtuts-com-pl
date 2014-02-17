@@ -48,6 +48,12 @@ app.get "/", main.index
 # GET /page/:slug
 app.get '/page/:slug', main.contents.show
 
+# GET /post/:slug
+app.get '/post/:slug', main.post.show
+
+# POST /post/:slug
+app.post '/post/:slug', main.post.show
+
 # GET /search
 app.get '/search', main.search
 

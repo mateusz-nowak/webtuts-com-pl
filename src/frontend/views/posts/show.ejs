@@ -1,0 +1,41 @@
+<%- layout('../layout') %>
+
+<section class="section-tutorials">
+    <article class="tutorial">
+        <p class="tutorial-title"><%= post.title %></p>
+        <div class="tutorial-tags">
+            <% if (post.tags) { %>
+              <% post.tags.forEach(function(tag) { %>
+                <span class="tag tag-<%= tag %>"><a href="/search?s=<%= tag %>"><%= tag %></a></span>
+              <% }) %>
+            <% } %>
+        </div>
+        <p class="post-intro"><%- post.introFormatted %></p>
+        <p class="post-description"><%- post.contentFormatted %></p>
+    </article>
+</section>
+
+<section class="section-base">
+    <h1 class="heading">Komentarze</h1>
+    <% post.comments.forEach(function(comment) { %>
+      <div class="comment">
+          <%= comment.user %>
+
+          <p><%= comment.content %></p>
+      </div>
+    <% }) %>
+<% if (user) { %>
+    <div class="row">
+        <div class="col-lg-2 text--center">
+            <img src="<%= user.gravatar %>" alt="Avatar" class="img-responsive img-thumbnail"/>
+        </div>
+        <div class="col-lg-10">
+            <form method="POST" action="/post/<%= post.slug %>#comments">
+                <%- formComment.toHTML() %>
+                <input type="submit" class="btn btn-default" value="Dodaj" />
+            </form>
+        </div>
+<% } else { %>
+  <div class="alert">Zaloguj się, aby móc pisać komentarze</div>
+<% } %>
+</section>

@@ -12,7 +12,7 @@
         <% if (post.link) { %>
             <a class="lead" href="<%= post.link %>"><span class="type-rss">rss</span><%= post.title %></a>
         <% } else { %>
-            <a class="lead" href="/tutorial/<%= post.slug %>"><%= post.title %></a>
+            <a class="lead" href="/post/<%= post.slug %>"><%= post.title %></a>
         <% } %>
             <div class="tutorial-tags">
                 <% if (post.tags) { %>
@@ -25,8 +25,8 @@
         <p class="tutorial-description">
             <%- post.introFormatted %>
             <div class="clearfix"></div>
-            <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps"><span class="glyphicon glyphicon-eye-open"></span> czytaj</a>
-            <a href="" rel="nofollow" class="btn btn-default btn-sm pull-right caps btn-comment"><span class="glyphicon glyphicon-comment"></span> komentuj</a>
+            <a href="/post/<%= post.slug %>" rel="nofollow" class="btn btn-default btn-sm pull-right caps"><span class="glyphicon glyphicon-eye-open"></span> czytaj</a>
+            <a href="/post/<%= post.slug %>#comments" rel="nofollow" class="btn btn-default btn-sm pull-right caps btn-comment"><span class="glyphicon glyphicon-comment"></span> komentuj</a>
             <div class="clearfix"></div>
         </p>
         <small class="tutorial-metadata">
