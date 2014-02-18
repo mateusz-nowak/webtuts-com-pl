@@ -70,16 +70,26 @@ module.exports.post.show = (req, res) ->
                   res.redirect '/post/' + post.slug + '#comments'
 
           error: (form) ->
+            Comment.find
+              post: post._id, {}, sort:
+                createdAt: -1
+            .populate 'user'
+            .exec (err, comments) ->
+              res.render 'posts/show',
+                post: post
+                comments: comments
+                formComment: formComment
+      else
 
-      Comment.find
-        post: post._id, {}, sort:
-          createdAt: -1
-      .populate 'user'
-      .exec (err, comments) ->
-        res.render 'posts/show',
-          post: post
-          comments: comments
-          formComment: formComment
+        Comment.find
+          post: post._id, {}, sort:
+            createdAt: -1
+        .populate 'user'
+        .exec (err, comments) ->
+          res.render 'posts/show',
+            post: post
+            comments: comments
+            formComment: formComment
 
 module.exports.index = (req, res) ->
   page = parseInt(req.query.page || 1)
