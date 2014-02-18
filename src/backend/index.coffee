@@ -7,10 +7,15 @@ app.engine "ejs", engine
 app.set "view engine", "ejs"
 app.set "views", __dirname + "/views"
 app.use validation()
+
 app.use "/admin", (req, res, next) ->
-  res.redirect "/"  unless req.user
+  config = app.get 'configuration'
+  user = res.locals.user
+
+  res.redirect "/"  unless user
+  res.redirect '/' if config.admins.indexOf('mateusz-nowak') == -1
+
   next()
-  return
 
 
 # GET /admin
