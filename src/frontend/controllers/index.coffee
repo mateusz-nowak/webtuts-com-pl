@@ -71,7 +71,6 @@ module.exports.post.show = (req, res) ->
 
           error: (form) ->
 
-
       Comment.find
         post: post._id, {}, sort:
           createdAt: -1
@@ -120,13 +119,14 @@ module.exports.category = (req, res) ->
         .paginate page, PER_PAGE, (err, posts, total) ->
           pagination = require 'pagination'
 
-          res.render 'index',
+          res.render 'posts/category',
             pager: pagination.create 'search',
               prelink: '/'
               current: page
               rowsPerPage: PER_PAGE
               totalResult: total
             posts: posts
+            category: category
 
 module.exports.search = (req, res) ->
   page = parseInt(req.query.page || 1)
