@@ -9,8 +9,9 @@ app.use passport.session()
 passport.use new gitHubStrategy(
   clientID: "5374a47ecacaf4ec509b"
   clientSecret: "38cf565072cd0e1f5f0e49c2ae2cbb234079a018"
-  callbackURL: "http://localhost:3000/auth/github/callback"
+  callbackURL: "http://192.168.1.102:3000/auth/github/callback"
 , (accessToken, refreshToken, profile, done) ->
+  console.log profile
   done null, profile
 )
 passport.serializeUser (user, done) ->
@@ -29,7 +30,7 @@ app.get "/auth/github", passport.authenticate("github")
 app.get "/auth/github/callback", passport.authenticate("github",
   failureRedirect: "/login"
 ), (req, res) ->
-  req.flash 'notice', 'Witaj, ' + req.user.displayName
+  req.flash 'notice', 'Witaj, @' + req.user.username
 
   res.redirect "/"
   return
@@ -63,7 +64,7 @@ app.use (req, res, next) ->
     User.update
       github: req.user.username
     ,
-      fullName: req.user.displayName
+      fullName: req.user.username
       gravatar: req.user._json.avatar_url
       github: req.user.username
       lastActivity: Date.now()
