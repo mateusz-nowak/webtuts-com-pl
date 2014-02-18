@@ -1,0 +1,41 @@
+<%- layout('layout') %>
+
+<% block('title', 'Najnowsze') %>
+
+<section class="section-tutorials">
+<% if (posts.length == 0) { %>
+    <div class="alert alert-info">
+        Przepraszamy, ale w tej kategorii nie ma jeszcze żadnych tutoriali.
+    </div>
+<% } %>
+<% posts.forEach(function(post) { %>
+    <article class="tutorial">
+        <p class="tutorial-title">
+        <% if (post.link) { %>
+            <a class="lead" href="<%= post.link %>"><span class="type-rss">rss</span><%= post.title %></a>
+        <% } else { %>
+            <a class="lead" href="/post/<%= post.slug %>"><%= post.title %></a>
+        <% } %>
+            <div class="tutorial-tags">
+                <% if (post.tags) { %>
+                  <% post.tags.forEach(function(tag) { %>
+                    <span class="tag tag-<%= tag %>"><a href="/search?s=<%= tag %>"><%= tag %></a></span>
+                  <% }) %>
+                <% } %>
+            </div>
+        </p>
+        <p class="tutorial-description">
+            <%- post.introFormatted %>
+            <div class="clearfix"></div>
+            <a href="/post/<%= post.slug %>" rel="nofollow" class="btn btn-default btn-sm pull-right caps"><span class="glyphicon glyphicon-eye-open"></span> czytaj</a>
+            <a href="/post/<%= post.slug %>#comments" rel="nofollow" class="btn btn-default btn-sm pull-right caps btn-comment"><span class="glyphicon glyphicon-comment"></span> komentuj</a>
+            <div class="clearfix"></div>
+        </p>
+        <small class="tutorial-metadata">
+            <%= post.createdAtFormatted %>, autor:
+            <span class="twitter"><a href="http://github.com/<%= post.user.github %>" rel="nofollow">@<%= post.user.github %></a></span>
+        </small>
+    </article>
+<% }) %>
+<%- pager.render() %>
+</section>

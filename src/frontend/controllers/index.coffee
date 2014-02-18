@@ -104,7 +104,7 @@ module.exports.index = (req, res) ->
     .paginate page, PER_PAGE, (err, posts, total) ->
       pagination = require 'pagination'
 
-      res.render 'index',
+      res.render 'main',
         pager: pagination.create 'search',
           prelink: '/'
           current: page
