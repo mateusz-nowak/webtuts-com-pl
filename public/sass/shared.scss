@@ -299,3 +299,51 @@ img[alt=about-author-image] {
         font-weight: 300;
     }
 }
+
+.table-forum-threads {
+    margin-top: 20px;
+    td.thread-title {
+        font-size: 24px;
+        font-weight: 400;
+        font-family: 'Exo 2', sans-serif;
+        a {
+            color: #000;
+        }
+    }
+    td.thread-info {
+        @extend .text--right;
+    }
+    td.thread-author {
+        @extend .text--center;
+        width: 120px;
+        .user-fullname {
+            display: block;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+        .user-username {
+            @extend .bold;
+        }
+        img {
+            @extend .img-thumbnail;
+        }
+    }
+}
+
+.table-posts, .table-comments {
+    td.table-posts-author, td.comment-user {
+        @extend .text--center;
+        width: 120px;
+        .user-fullname {
+            display: block;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+        .user-username {
+            @extend .bold;
+        }
+        img {
+            @extend .img-thumbnail;
+        }
+    }
+}

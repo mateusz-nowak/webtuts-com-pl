@@ -1,0 +1,27 @@
+<%- layout('../layout') %>
+
+<section class="section-base">
+    <h1 class="heading">Zakładanie nowego tematu</h1>
+    <div class="row">
+        <div class="col-lg-7">
+            <form method="post">
+                <%- form.toHTML() %>
+                <small>Kodowanie działa w oparciu o <b>markdown</b></small>
+                <div class="container-submit-btn">
+                    <% if (user) { %>
+                        <input type="submit" class="btn btn-default" value="Załóż" />
+                    <% } else { %>
+                        <div class="alert alert-info">
+                            Zaloguj się, aby zakładać tematy na forum.
+                        </div>
+                    <% } %>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-5">
+            Masz jakiś problem z działaniem Twojej aplikacji, bez względu czy Twoim językiem jest PHP, Java, Python czy C#?<br><br>
+            Nie możesz znaleść rozwiązania w internecie?<br><br>
+            Zastanawiasz się nad technologią wykonania nowego projektu, a może po prostu chcesz się poradzić kogoś bardziej doświadczonego? <span class="label label-success">Załóz nowy temat</span> na webtuts!
+        </div>
+    </div>
+</section>

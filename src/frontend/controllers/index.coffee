@@ -8,6 +8,44 @@ Comment = require '../models/comment'
 
 PER_PAGE = 10
 
+module.exports.write = (req, res) ->
+  Category.find {}, (err, categories) ->
+    choices = []
+    categories.forEach (category) ->
+      choices[category._id] = category.name
+
+    form = require('../forms/post')(choices)
+
+    res.render 'posts/write',
+      form: form
+
+module.exports.writePost = (req, res) ->
+  Category.find {}, (err, categories) ->
+    choices = []
+    categories.forEach (category) ->
+      choices[category._id] = category.name
+
+    form = require('../forms/post')(choices)
+
+    form.handle req.body,
+      success: (form) ->
+        req.flash 'notice', 'Dziękujemy za artykuł. Będzie on widoczny od razu po akceptacji administratora.'
+
+        postData = req.body
+        postData.user = res.locals.user
+
+        slug = require 'slug'
+        postData.slug = slug postData.title
+        postData.tags = postData.tags.split ','
+
+        post = new Post postData
+        post.save (err, post) ->
+          return res.redirect '/'
+
+      error: (form) ->
+        res.render 'posts/write',
+          form: form
+
 module.exports.post = {}
 module.exports.post.show = (req, res) ->
   Post.findOne
@@ -21,6 +59,7 @@ module.exports.post.show = (req, res) ->
           success: (form) ->
             commentData = req.body
             commentData.user = res.locals.user
+            commentData.post = post
 
             comment = new Comment commentData
             comment.save  (err, insert) ->
@@ -32,15 +71,27 @@ module.exports.post.show = (req, res) ->
 
           error: (form) ->
 
-      res.render 'posts/show',
-        post: post
-        formComment: formComment
+
+      Comment.find
+        post: post._id, {}, sort:
+          createdAt: -1
+      .populate 'user'
+      .exec (err, comments) ->
+        res.render 'posts/show',
+          post: post
+          comments: comments
+          formComment: formComment
 
 module.exports.index = (req, res) ->
   page = parseInt(req.query.page || 1)
 
   Post
-    .find {}
+    .find
+      active: true
+    , {},
+      sort:
+        createdAt: -1
+    .populate 'user'
     .paginate page, PER_PAGE, (err, posts, total) ->
       pagination = require 'pagination'
 
@@ -60,7 +111,12 @@ module.exports.category = (req, res) ->
       Post
         .find
           category: category.id
+          active: true
+        , {},
+          sort:
+            createdAt: -1
         .populate 'category'
+        .populate 'user'
         .paginate page, PER_PAGE, (err, posts, total) ->
           pagination = require 'pagination'
 
@@ -78,12 +134,14 @@ module.exports.search = (req, res) ->
 
   Post
     .find
+      active: true
       $or: [
         { title: new RegExp(query) },
         { intro: new RegExp(query) },
         { body: new RegExp(query) },
         { tags: new RegExp(query) }
       ]
+    .populate 'user'
     .paginate page, PER_PAGE, (err, posts, total) ->
       pagination = require 'pagination'
 

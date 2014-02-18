@@ -1,0 +1,12 @@
+<%- layout('../layout') %>
+
+<section class="section-base">
+    <h1 class="heading">Napisz artykuł</h1>
+    <form method="post">
+        <%- form.toHTML() %>
+        <small>Markdown jest dostępny</small>
+        <div>
+            <input type="submit" class="btn btn-default" value="Napisz artykuł" />
+        </div>
+    </form>
+</section>

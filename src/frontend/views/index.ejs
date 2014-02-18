@@ -30,10 +30,8 @@
             <div class="clearfix"></div>
         </p>
         <small class="tutorial-metadata">
-          <%= post.createdAtFormatted %>, author: <%= post.author ? post.author : '@noname' %>
-            <% if (post.twitter) { %>
-                <span class="twitter">(<a href="http://twitter.com/<%= post.twitter.substr(1) %>" rel="nofollow"><%= post.twitter %></a>)</span>
-            <% } %>
+            <%= post.createdAtFormatted %>, autor:
+            <span class="twitter"><a href="http://github.com/<%= post.user.github %>" rel="nofollow">@<%= post.user.github %></a></span>
         </small>
     </article>
 <% }) %>

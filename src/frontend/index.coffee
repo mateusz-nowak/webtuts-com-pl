@@ -28,13 +28,17 @@ app.use (req, res, next) ->
 
   , (err, results) ->
     res.locals.tags = results
-    res.locals.tagMaxValue = results.reduce (a, b) ->
-      return a if !b
-      return b if !a
-      if b.value > a.value
-        return a.value
-      else
-        return b.value
+
+    if results.length == 0
+        res.locals.tagMaxValue = []
+    else
+        res.locals.tagMaxValue = results.reduce (a, b) ->
+          return a if !b
+          return b if !a
+          if b.value > a.value
+            return a.value
+          else
+            return b.value
 
     next()
 
@@ -59,6 +63,12 @@ app.get '/search', main.search
 
 # GET /category/:category
 app.get '/categories/:category', main.category
+
+# GET /write
+app.get '/write', main.write
+
+# POST /write
+app.post '/write', main.writePost
 
 # GET *
 app.get '*', main.notFound

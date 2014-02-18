@@ -26,6 +26,9 @@ schema = mongoose.Schema(
   tags:
     type: Array
     default: []
+  user:
+    type: mongoose.Schema.Types.ObjectId
+    ref: 'User'
   category:
     type: mongoose.Schema.Types.ObjectId
     ref: 'Category'

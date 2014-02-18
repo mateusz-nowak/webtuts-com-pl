@@ -1,0 +1,32 @@
+<%- layout('../layout') %>
+<% id = 0 %>
+<div class="text--right">
+    <a class="btn btn-primary btn-default" href="/forum/<%= thread._id %>/posts/new">Odpowiedz</a>
+</div>
+
+<section class="section-base">
+    <h1 class="heading"><%= thread.title %></h1>
+
+    <table class="table table-stripped table-posts">
+        <% posts.forEach(function(post) { %>
+            <tr>
+                <td class="table-posts-author">
+                    <img src="<%= post.user.gravatar %>" alt="<%= post.user.username %>" />
+                    <span class="user-fullname"><%= post.user.fullName %></span>
+                    <span class="user-username"><a href="http://github.com/<%= post.user.github %>">@<%= post.user.github %></a></span>
+                </td>
+                <td class="table-posts-contnet">
+                    <% if (user && (post.user._id.toString() == user._id.toString())) { %>
+                        <% if (id++ > 0) { %>
+                            <div class="text--right">
+                                <a href="/forum/<%= thread._id %>/posts/<%= post._id %>/remove"><span class="glyphicon glyphicon-trash"></span></a>
+                            </div>
+                        <% } %>
+                    <% } %>
+                    <%- post.contentFormatted %>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+</section>
+

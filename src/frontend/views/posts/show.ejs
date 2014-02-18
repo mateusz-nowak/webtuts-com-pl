@@ -14,16 +14,21 @@
         <p class="post-description"><%- post.contentFormatted %></p>
     </article>
 </section>
-
 <section class="section-base">
-    <h1 class="heading">Komentarze</h1>
-    <% post.comments.forEach(function(comment) { %>
-      <div class="comment">
-          <%= comment.user %>
-
-          <p><%= comment.content %></p>
-      </div>
-    <% }) %>
+    <table class="table table-stripped table-comments">
+        <% comments.forEach(function(comment) { %>
+            <tr>
+                <td class="comment-user">
+                    <img src="<%= comment.user.gravatar %>" alt="<%= comment.user.username %>" />
+                    <span class="user-fullname"><%= comment.user.fullName %></span>
+                    <span class="user-username"><a href="http://github.com/<%= comment.user.github %>">@<%= comment.user.github %></a></span>
+                </td>
+                <td class="comment-content">
+                    <%- comment.contentFormatted %>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
 <% if (user) { %>
     <div class="row">
         <div class="col-lg-2 text--center">

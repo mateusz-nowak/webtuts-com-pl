@@ -5,6 +5,7 @@
     <title>example</title>
     <link type="text/css" href="http://bootswatch.com/yeti/bootstrap.css" rel="stylesheet" />
     <link type="text/css" href="/css/shared.css" rel="stylesheet" />
+    <link type="text/css" href="/css/forums.css" rel="stylesheet" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="http://www.goat1000.com/jquery.tagcanvas.min.js?2.2"></script>
     <script type="text/javascript" src="/scripts/common.js"></script>
@@ -42,7 +43,7 @@
                     <% if (!user) { %>
                         <a class="btn btn-default" href="/auth/github"><span class="glyphicon glyphicon-user" /> Zaloguj</a>
                     <% } else { %>
-                        <a href="/write" class="btn btn-default"><span class="glyphicon glyphicon-pencil" /> <span class="bold">Napisz</span></a>
+                        <a class="btn btn-default"><span class="glyphicon glyphicon-pencil" /> <span class="bold">Napisz</span></a>
                         <a href="/admin" class="btn btn-danger"><span class="glyphicon glyphicon-pencil" /> <span class="bold">Backend</span></a>
                     <% } %>
                 </div>
@@ -54,49 +55,7 @@
             <div class="alert alert-success"><%= flash.notice %></div>
         <% } %>
         <section class="container-base">
-            <section class="container-sidebar">
-                <p class="lead lead-sidebar caps bold">Kategorie</p>
-                <ul class="nav nav-pills nav-stacked nav-categories">
-                    <% categories.forEach(function(category) { %>
-                        <li>
-                            <a href="/categories/<%= category.slug %>">
-                                <span class="glyphicon glyphicon-minus"></span>
-                                <%= category.name %>
-                            </a>
-                        </li>
-                    <% }) %>
-                </ul>
-                <p class="lead caps bold lead-sidebar lead-search">Chmura tagów</p>
-                <div class="tag-container">
-                  <canvas id="tagCanvas">
-                      <p>Anything in here will be replaced on browsers that support the canvas element</p>
-                      <ul>
-                          <% tags.forEach(function(tag) { %>
-                              <li><a href="/search?s=<%= tag._id %>"><%= tag._id %></a></li>
-                          <% }) %>
-                      </ul>
-                     </canvas>
-                </div>
-                <p class="lead caps bold lead-sidebar lead-search">Przeszukaj</p>
-                <small class="hint">wyszukiwanie po tytule, treści, tagach</small>
-                <form class="form-horizontal form-search" action="/search">
-                    <input type="text" class="form-control" name="s" placeholder="Wpisz zapytanie..." />
-                    <button class="btn btn-default btn-search"><span class="glyphicon glyphicon-search"></span> Szukaj</button>
-                </form>
-                <p class="lead caps bold lead-sidebar lead-online">Ostatnie aktywności</p>
-                <ul class="last-activity">
-                    <% online.forEach(function(user) { %>
-                      <li>
-                        <span class="fullname"><%= user.fullName %></span>
-                        <span class="github-username">
-                            <a rel="nofollow" href="http://github.com/<%= user.github %>/">@<%= user.github %></a>
-                        </span>
-                        <span class="activity"><%= user.lastActivityInWords %></span>
-                      </li>
-                    <% }) %>
-                </ul>
-            </section>
-            <section class="container-body">
+            <section class="container-whole">
                 <%- body -%>
             </section>
             <div class="clearfix"></div>
@@ -109,3 +68,4 @@
     </div>
 </body>
 </html>
+

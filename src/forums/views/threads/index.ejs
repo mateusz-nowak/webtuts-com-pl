@@ -1,0 +1,30 @@
+<%- layout('../layout') %>
+
+<div class="text--right">
+    <a class="btn btn-primary" href="/forum/threads/new">Załóż temat</a>
+</div>
+
+<% if (threads.length == 0) { %>
+    <div class="alert alert-info">
+        Obecnie nie ma żadnych tematow na forum. Możesz być pierwszy.
+    </div>
+<% } else { %>
+    <table class="table table-striped table-forum-threads">
+    <% threads.forEach(function(thread) { %>
+        <tr>
+            <td class="thread-author">
+                <img src="<%= thread.user.gravatar %>" alt="<%= thread.user.username %>" />
+                <span class="user-fullname"><%= thread.user.fullName %></span>
+                <span class="user-username"><a href="http://github.com/<%= thread.user.github %>">@<%= thread.user.github %></a></span>
+            </td>
+            <td class="thread-title">
+                <a href="/forum/<%= thread._id %>"><%= thread.title %></a>
+            </td>
+            <td class="thread-info">
+                Data dodania: <span class="bold"><%= thread.createdAtFormatted %></span><br>
+            </td>
+        </tr>
+    <% }) %>
+    </table>
+    <%- pager.render() %>
+<% } %>
