@@ -9,7 +9,7 @@ app.use passport.session()
 passport.use new gitHubStrategy(
   clientID: "5374a47ecacaf4ec509b"
   clientSecret: "38cf565072cd0e1f5f0e49c2ae2cbb234079a018"
-  callbackURL: "http://192.168.1.102:3000/auth/github/callback"
+  callbackURL: "http://localhost:3000/auth/github/callback"
 , (accessToken, refreshToken, profile, done) ->
   console.log profile
   done null, profile

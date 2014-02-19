@@ -16,8 +16,9 @@ app.use (req, res, next) ->
 
   Post.mapReduce
     map: ->
-      for index of this.tags
-        emit @tags[index], 1
+      if this.active == true
+        for index of this.tags
+          emit @tags[index], 1
 
     reduce: (previous, current) ->
       count = 0
@@ -69,6 +70,9 @@ app.get '/write', main.write
 
 # POST /write
 app.post '/write', main.writePost
+
+# GET /comments/:id/remove
+app.get '/comments/:id/remove', main.comments.remove
 
 # GET *
 app.get '*', main.notFound

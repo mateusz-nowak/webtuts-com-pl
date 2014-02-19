@@ -19,6 +19,15 @@ module.exports.write = (req, res) ->
     res.render 'posts/write',
       form: form
 
+module.exports.comments = {}
+module.exports.comments.remove = (req, res) ->
+  Comment.remove
+    _id: req.params.id
+  , (err, comment) ->
+    req.flash 'notice', 'Poprawnie usunięto komentarz'
+
+    res.redirect 'back'
+
 module.exports.writePost = (req, res) ->
   Category.find {}, (err, categories) ->
     choices = []
@@ -99,7 +108,7 @@ module.exports.index = (req, res) ->
       active: true
     , {},
       sort:
-        createdAt: -1
+        createdAt: 1
     .populate 'user'
     .paginate page, PER_PAGE, (err, posts, total) ->
       pagination = require 'pagination'

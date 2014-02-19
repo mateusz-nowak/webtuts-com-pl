@@ -24,6 +24,11 @@
             </td>
             <td class="thread-info">
                 Data dodania: <span class="bold"><%= thread.createdAtFormatted %></span><br>
+                <% if (user && user._id.toString() == thread.user._id.toString()) { %>
+                    <div class="text--right">
+                        <a href="/forum/<%= thread._id %>/remove"><span class="glyphicon glyphicon-trash"></span></a>
+                    </div>
+                <% } %>
             </td>
         </tr>
     <% }) %>

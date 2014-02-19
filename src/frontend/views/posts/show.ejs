@@ -14,6 +14,11 @@
         </div>
         <p class="post-intro"><%- post.introFormatted %></p>
         <p class="post-description"><%- post.contentFormatted %></p>
+        <% if (post.rss) { %>
+            <div class="text--right">
+                <p class="post-rss">Źródło (RSS): <a href="http://<%= post.rss %>"><%= post.rss %></a></p>
+            </div>
+        <% } %>
     </article>
 </section>
 <section class="section-base">
@@ -26,6 +31,11 @@
                     <span class="user-username"><a href="http://github.com/<%= comment.user.github %>">@<%= comment.user.github %></a></span>
                 </td>
                 <td class="comment-content">
+                    <% if (user && user._id.toString() == comment.user._id.toString()) { %>
+                        <div class="text--right">
+                            <a href="/comments/<%= comment._id %>/remove"><span class="glyphicon glyphicon-trash"></span></a>
+                        </div>
+                    <% } %>
                     <%- comment.contentFormatted %>
                 </td>
             </tr>

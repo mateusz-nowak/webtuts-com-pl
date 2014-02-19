@@ -29,6 +29,14 @@ route.create = (req, res) ->
   res.render 'threads/new',
     form: form
 
+route.remove = (req, res) ->
+  Thread.remove
+    _id: req.params.thread
+  , (err, thread) ->
+    req.flash 'notice', 'Usunięto wątek'
+
+    res.redirect 'back'
+
 route.show = (req, res) ->
   Thread.findOne
     _id: req.params.id

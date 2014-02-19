@@ -33,7 +33,12 @@
         </p>
         <small class="tutorial-metadata">
             <%= post.createdAtFormatted %>, autor:
-            <span class="twitter"><a href="http://github.com/<%= post.user.github %>" rel="nofollow">@<%= post.user.github %></a></span>
+            <% if (post.github) { %>
+                <span class="twitter"><a href="http://github.com/<%= post.user.github %>" rel="nofollow">@<%= post.user.github %></a></span>
+            <% } %>
+            <% if (post.rss) { %>
+                <span class="twitter"><a href="http://<%= post.rss %>" rel="nofollow">@<%= post.rss %></a></span>
+            <% } %>
         </small>
     </article>
 <% }) %>

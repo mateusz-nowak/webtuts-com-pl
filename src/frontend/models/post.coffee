@@ -26,6 +26,8 @@ schema = mongoose.Schema(
   tags:
     type: Array
     default: []
+  rss:
+    type: String
   user:
     type: mongoose.Schema.Types.ObjectId
     ref: 'User'

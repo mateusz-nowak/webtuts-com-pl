@@ -27,3 +27,6 @@ app.post '/forum/:id/posts/new', route.posts.post
 
 # GET /forum/:thread/posts/:post/remove
 app.get '/forum/:thread/posts/:post/remove', route.posts.remove
+
+# GET /forum/:thread/remove
+app.get '/forum/:thread/remove', route.remove

@@ -1,8 +1,10 @@
-app = require(__dirname + "../../../../app")
-Post = require('../models/post')
+app = require __dirname + "../../../../app"
+Post = require '../models/post'
+
 resolveProviders = ->
   providers = []
   providers.push require("./providers/xlab")
+  providers.push require("./providers/fabien")
   providers
 
 providers = resolveProviders()
@@ -13,6 +15,9 @@ providers.forEach (provider) ->
   posts = []
   addPosts = (posts) ->
       posts.forEach (post) ->
+        slug = require 'slug'
+        post.slug = slug post.title
+
         Post.update
           title: post.title
         ,
