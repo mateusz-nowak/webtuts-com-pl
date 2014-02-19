@@ -33,7 +33,7 @@
         </p>
         <small class="tutorial-metadata">
             <%= post.createdAtFormatted %>, autor:
-            <% if (post.github) { %>
+            <% if (post.user) { %>
                 <span class="twitter"><a href="http://github.com/<%= post.user.github %>" rel="nofollow">@<%= post.user.github %></a></span>
             <% } %>
             <% if (post.rss) { %>
