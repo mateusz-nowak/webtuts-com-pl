@@ -5,6 +5,7 @@ resolveProviders = ->
   providers = []
   providers.push require("./providers/xlab")
   providers.push require("./providers/fabien")
+  providers.push require("./providers/planetaphp")
   providers
 
 providers = resolveProviders()
