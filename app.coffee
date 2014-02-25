@@ -41,6 +41,7 @@ app.configure ->
 app.use require 'auth'
 app.use require 'backend'
 app.use require 'forums'
+app.use require 'job'
 app.use require 'frontend'
 
 module.exports = app

@@ -1,0 +1,36 @@
+body {
+  background: url('/images/bg-jobs.jpg') no-repeat top center;
+}
+
+.table-jobs {
+  margin-top: 20px;
+
+  .job-icon {
+    width: 50px;
+    font-size: 24px;
+  }
+  .job-title {
+    font-size: 18px;
+    font-weight: 400;
+    a {
+      color: #000;
+    }
+    .category {
+      font-size: 11px;
+    }
+  }
+  .job-createdAt {
+    font-size: 12px;
+    text-align: right;
+    width: 150px;
+  }
+}
+
+.alert-info-offers {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.section-bid {
+  margin-top: 50px;
+}

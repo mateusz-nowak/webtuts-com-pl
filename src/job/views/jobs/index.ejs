@@ -1,0 +1,42 @@
+<%- layout('../layout') %>
+
+<% block('title', 'Zlecenia internetowe') %>
+
+<div class="text--right">
+    <a href="/jobs/new" class="btn btn-success btn-md">Dodaj nowe zlecenie<br><small>za darmo</small></a>
+</div>
+
+<div class="alert alert-warning alert-info-offers">
+    W tej sekcji możesz jako zleceniodawca dodać nowe zlecenie pracy - <strong>nie musisz się rejestrować!</strong>. Jako zleceniobiorca masz możliwość negocjacji ceny zlecenia. Jest to idealne miejsce dla Ciebie, jeśli jesteś freelancerem!
+</div>
+
+<% if (jobs.length == 0) { %>
+    <div class="alert alert-info">
+        Obecnie w tej kategorii nie ma żadnych zleceń.
+    </div>
+<% } %>
+
+<table class="table table-jobs">
+    <tbody>
+        <% jobs.forEach(function(job) { %>
+            <tr>
+                <td class="job-icon">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                </td>
+                <td class="job-title">
+                    <a href="/job/offer/<%= job._id %>"><%= job.title %></a><br/>
+                    <span class="category">Kategoria:
+                        <small>
+                            <a href="/jobs/<%= job.category.slug %>"><%= job.category.name %></a>
+                        </small>
+                    </span>
+                </td>
+                <td class="job-createdAt">
+                    <%= job.getCreatedAtInWords %>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+
+<%- pager.render() %>

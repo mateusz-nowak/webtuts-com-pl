@@ -1,0 +1,50 @@
+<%- layout('../layout') %>
+
+<% block('title', job.title) %>
+
+<div class="section-base">
+    <h1 class="heading"><%= job.title %></h1>
+
+    <%- job.contentFormatted %>
+</div>
+
+<div class="section-base section-bid">
+    <h2 class="heading">Złozone oferty</h2>
+
+    <% if (bids.length == 0) { %>
+        <div class="alert alert-warning">Nie złożono jeszcze żadnych ofert na to zlecenie.</div>
+    <% } %>
+
+    <% bids.forEach(function(bid) { %>
+        <div class="row">
+            <div class="col-lg-2 text--center">
+                <img src="<%= bid.user.gravatar %>" alt="Avatar" class="img-responsive img-thumbnail"/>
+            </div>
+            <div class="col-lg-10">
+                <div class="price"><span class="bold">@<%= bid.user.github %></span> proponuje kwotę: <%= bid.price %> zł</div>
+                <p>
+                    <%- bid.contentFormatted %>
+                </p>
+            </div>
+        </div>
+    <% }) %>
+</div>
+
+<div class="section-base section-bid">
+    <h2 class="heading">Złóż ofertę</h2>
+    <% if (user) { %>
+        <div class="row">
+            <div class="col-lg-2 text--center">
+                <img src="<%= user.gravatar %>" alt="Avatar" class="img-responsive img-thumbnail"/>
+            </div>
+            <div class="col-lg-10">
+                <form method="post">
+                    <%- bidForm %>
+                    <input type="submit" class="btn btn-default" value="Złóz propozycję" />
+                </form>
+            </div>
+        </div>
+    <% } else { %>
+        <div class="alert alert-warning">Zaloguj się, aby móc dodawać propozycje cenowe.</div>
+    <% } %>
+</div>

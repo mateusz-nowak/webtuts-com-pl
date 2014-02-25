@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "pagination": "~0.3.8",
+    "slug": "~0.4.0",
+    "marked": "^0.3.1"
+  }
+}

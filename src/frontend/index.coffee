@@ -14,34 +14,38 @@ app.use (req, res, next) ->
 app.use (req, res, next) ->
   Post = require './models/post'
 
-  Post.mapReduce
-    map: ->
-      if this.active == true
-        for index of this.tags
-          emit @tags[index], 1
+  res.locals.tags = []
+  res.locals.tagMaxValue = []
 
-    reduce: (previous, current) ->
-      count = 0
-      for index of current
-        count += current[index]
-      return count
-    limit: 20
+  if Post.find().length
+    Post.mapReduce
+      map: ->
+        if this.active == true
+          for index of this.tags
+            emit @tags[index], 1
 
-  , (err, results) ->
-    res.locals.tags = results
+      reduce: (previous, current) ->
+        count = 0
+        for index of current
+          count += current[index]
+        return count
+      limit: 20
 
-    if results.length == 0
-        res.locals.tagMaxValue = []
-    else
-        res.locals.tagMaxValue = results.reduce (a, b) ->
-          return a if !b
-          return b if !a
-          if b.value > a.value
-            return a.value
-          else
-            return b.value
+    , (err, results) ->
+      res.locals.tags = results
 
-    next()
+      if results.length == 0
+          res.locals.tagMaxValue = []
+      else
+          res.locals.tagMaxValue = results.reduce (a, b) ->
+            return a if !b
+            return b if !a
+            if b.value > a.value
+              return a.value
+            else
+              return b.value
+
+  next()
 
 app.engine "ejs", engine
 app.set "view engine", "ejs"

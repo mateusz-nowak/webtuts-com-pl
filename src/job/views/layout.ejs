@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title><%- blocks.title %> - poradniki, tutoriale, artykuły dla programistów, zlecenia internetowe, forum</title>
+    <meta name="description" content="poradniki, tutoriale internetowe dla programistów. poznaj technologie takie jak mysql, node, javascript, php, symfony, symfony2, ajax, sql, mongo">
+    <meta name="keywords" content="php,mysql,node,javascript,web,it,sql,mongo,development">
+    <meta name="author" content="mateusz nowak">
+    <link type="text/css" href="http://bootswatch.com/yeti/bootstrap.css" rel="stylesheet" />
+    <link type="text/css" href="/css/shared.css" rel="stylesheet" />
+    <link type="text/css" href="/css/jobs.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="http://www.goat1000.com/jquery.tagcanvas.min.js?2.2"></script>
+    <script type="text/javascript" src="/scripts/common.js"></script>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="container-logo">
+            <div class="logo">
+                <h1>
+                    <span class="bold">web</span>tuts.com.pl
+                    <div class="slogan">zlecenia internetowe dla freelancerów</div>
+                </h1>
+            </div>
+            <% if (user) { %>
+            <div class="statistics">
+                <div class="auth-info">
+                    <img src="<%= user.gravatar %>" />
+                                <span class="user-info">
+                                    <span class="bold user-name">@<%= user.github %></span>
+                                    <a class="btn-logout" href="/auth/logout"><span class="glyphicon glyphicon-off"></span></a>
+                                </span>
+                </div>
+            </div>
+            <% } %>
+            <div class="clearfix"></div>
+        </div>
+        <nav class="navbar navbar-inverse">
+            <div class="navbar-form navbar-left">
+                <a href="/" class="btn btn-default"><span class="glyphicon glyphicon-home" /> Główna</a>
+                <a href="/jobs" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-euro" /> Zlecenia</a>
+                <a href="/forum" class="btn btn-default"><span class="glyphicon glyphicon-indent-left" /> Forum</a>
+                <a href="/page/autorzy" class="btn btn-default"><span class="glyphicon glyphicon-envelope" /> Autorzy</a>
+            </div>
+            <div class="navbar-form navbar-right">
+                <% if (!user) { %>
+                <a class="btn btn-default" href="/auth/github"><span class="glyphicon glyphicon-user" /> Zaloguj</a>
+                <% } else { %>
+                <a class="btn btn-default"><span class="glyphicon glyphicon-pencil" /> <span class="bold">Napisz</span></a>
+                <% } %>
+            </div>
+        </nav>
+        <div class="clearfix"></div>
+    </header>
+    <div class="clearfix"></div>
+    <% if (flash.notice.length) { %>
+        <div class="alert alert-success"><%= flash.notice %></div>
+    <% } %>
+    <section class="container-base">
+        <section class="container-sidebar">
+            <p class="lead lead-sidebar caps bold">Szukaj Zlecenia z zakresu</p>
+            <ul class="nav nav-pills nav-stacked nav-categories">
+                <% categories.forEach(function(category) { %>
+                <li>
+                    <a href="/jobs/<%= category.slug %>">
+                        <span class="glyphicon glyphicon glyphicon-copyright-mark"></span>
+                        <%= category.name %>
+                    </a>
+                </li>
+                <% }) %>
+            </ul>
+        </section>
+        <section class="container-body">
+            <%- body -%>
+        </section>
+        <div class="clearfix"></div>
+    </section>
+    <footer>
+        <nav class="navbar navbar-footer">
+            <p class="navbar-text pull-right">Made on top of Node.js, Mongo and fascinated by open-source</p>
+        </nav>
+    </footer>
+</div>
+</body>
+</html>
+
