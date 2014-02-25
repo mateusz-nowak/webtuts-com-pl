@@ -41,6 +41,8 @@ route.show = (req, res) ->
   Thread.findOne
     _id: req.params.id
    , (err, thread) ->
+     return res.redirect '/not-exists' if !thread
+
      Post.find
       thread: req.params.id, {}, sort:
         createdAt: 1

@@ -56,11 +56,13 @@ module.exports.writePost = (req, res) ->
           form: form
 
 module.exports.post = {}
-module.exports.post.show = (req, res) ->
+module.exports.post.show = (req, res, next) ->
   Post.findOne
       slug: req.params.slug
     .populate 'comments'
     .exec (err, post) ->
+      return res.redirect '/not-exists' if !post
+
       formComment = require '../forms/post-comment'
 
       if req.method == 'POST'
@@ -126,6 +128,8 @@ module.exports.category = (req, res) ->
 
   Category.findOne
     slug: req.params.category, (err, category) ->
+      return res.redirect '/not-exists' if !category
+
       Post
         .find
           category: category.id

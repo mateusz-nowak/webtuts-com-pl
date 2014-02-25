@@ -32,6 +32,8 @@ jobs.show = (req, res) ->
   JobCategory.find {}, (err, categories) ->
     Job.findOne
       _id: req.params.id, (err, job) ->
+        return res.redirect '/not-exists' if !job
+
         bidForm = require '../forms/bid'
 
         Bid.find
@@ -49,6 +51,8 @@ jobs.bid = (req, res) ->
   JobCategory.find {}, (err, categories) ->
     Job.findOne
       _id: req.params.id, (err, job) ->
+        return res.redirect '/not-exists' if !job
+
         bidForm = require '../forms/bid'
 
         bidForm.handle req.body,
@@ -74,7 +78,7 @@ jobs.category = (req, res) ->
   JobCategory.find {}, (err, categories) ->
     JobCategory.findOne
       slug: req.params.category, (err, category) ->
-        return res.redirect '/' if !category
+        return res.redirect '/not-exists' if !category
 
         Job.find
           category: category._id

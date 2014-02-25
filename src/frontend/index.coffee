@@ -17,7 +17,7 @@ app.use (req, res, next) ->
   res.locals.tags = []
   res.locals.tagMaxValue = []
 
-  if Post.find().length
+  if Post.count
     Post.mapReduce
       map: ->
         if this.active == true
@@ -45,7 +45,7 @@ app.use (req, res, next) ->
             else
               return b.value
 
-  next()
+      next()
 
 app.engine "ejs", engine
 app.set "view engine", "ejs"
