@@ -110,7 +110,7 @@ module.exports.index = (req, res) ->
       active: true
     , {},
       sort:
-        createdAt: 1
+        createdAt: -1
     .populate 'user'
     .paginate page, PER_PAGE, (err, posts, total) ->
       pagination = require 'pagination'
